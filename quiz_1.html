@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cancer Unit Quiz</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+    .question { margin-bottom: 25px; }
+    .correct { color: green; font-weight: bold; display: none; }
+    .incorrect { color: red; font-weight: bold; display: none; }
+  </style>
+
+  <script>
+    function checkAnswer(questionId, correctOption) {
+      const options = document.getElementsByName(questionId);
+      options.forEach((o, idx) => {
+        const correctMsg = document.getElementById(questionId + "-correct");
+        const wrongMsg = document.getElementById(questionId + "-wrong");
+
+        if (o.checked) {
+          if (o.value === correctOption) {
+            correctMsg.style.display = "block";
+            wrongMsg.style.display = "none";
+          } else {
+            correctMsg.style.display = "none";
+            wrongMsg.style.display = "block";
+          }
+        }
+      });
+    }
+  </script>
+</head>
+
+<body>
+
+<h2>Cancer Unit Quiz</h2>
+
+<!-- Question 1 -->
+<div class="question">
+  <p><strong>1. What gene helps regulate the cell cycle and prevent cancer?</strong></p>
+  <label><input type="radio" name="q1" value="A" onclick="checkAnswer('q1','C')"> A. Melanin</label><br>
+  <label><input type="radio" name="q1" value="B" onclick="checkAnswer('q1','C')"> B. Hemoglobin</label><br>
+  <label><input type="radio" name="q1" value="C" onclick="checkAnswer('q1','C')"> C. p53</label><br>
+  <label><input type="radio" name="q1" value="D" onclick="checkAnswer('q1','C')"> D. Lactase</label>
+
+  <p id="q1-correct" class="correct">✔ Correct! p53 regulates checkpoints in the cell cycle.</p>
+  <p id="q1-wrong" class="incorrect">✘ Incorrect. Try again!</p>
+</div>
+
+<!-- Question 2 -->
+<div class="question">
+  <p><strong>2. What increases the likelihood of getting cancer?</strong></p>
+  <label><input type="radio" name="q2" value="A" onclick="checkAnswer('q2','B')"> A. Fewer cell divisions</label><br>
+  <label><input type="radio" name="q2" value="B" onclick="checkAnswer('q2','B')"> B. More cell divisions over a lifetime</label><br>
+  <label><input type="radio" name="q2" value="C" onclick="checkAnswer('q2','B')"> C. Having a cold</label><br>
+  <label><input type="radio" name="q2" value="D" onclick="checkAnswer('q2','B')"> D. Eating spicy food</label>
+
+  <p id="q2-correct" class="correct">✔ Correct! More divisions mean more chances for mutations.</p>
+  <p id="q2-wrong" class="incorrect">✘ Incorrect. Remember: mutations usually happen during cell division.</p>
+</div>
+
+<!-- Question 3 -->
+<div class="question">
+  <p><strong>3. UV radiation increases cancer risk by causing…</strong></p>
+  <label><input type="radio" name="q3" value="A" onclick="checkAnswer('q3','D')"> A. More melanin production</label><br>
+  <label><input type="radio" name="q3" value="B" onclick="checkAnswer('q3','D')"> B. Cells to divide faster</label><br>
+  <label><input type="radio" name="q3" value="C" onclick="checkAnswer('q3','D')"> C. Cells to grow larger</label><br>
+  <label><input type="radio" name="q3" value="D" onclick="checkAnswer('q3','D')"> D. Mutations in DNA</label>
+
+  <p id="q3-correct" class="correct">✔ Correct! UV radiation damages DNA, leading to mutations.</p>
+  <p id="q3-wrong" class="incorrect">✘ Incorrect. Focus on how UV light affects DNA.</p>
+</div>
+
+<!-- Question 4 -->
+<div class="question">
+  <p><strong>4. Which of these is an inherited condition that increases cancer risk?</strong></p>
+  <label><input type="radio" name="q4" value="A" onclick="checkAnswer('q4','C')"> A. Seasonal allergies</label><br>
+  <label><input type="radio" name="q4" value="B" onclick="checkAnswer('q4','C')"> B. Meiosis</label><br>
+  <label><input type="radio" name="q4" value="C" onclick="checkAnswer('q4','C')"> C. Li-Fraumeni Syndrome</label><br>
+  <label><input type="radio" name="q4" value="D" onclick="checkAnswer('q4','C')"> D. High melanin levels</label>
+
+  <p id="q4-correct" class="correct">✔ Correct! LFS is caused by inherited mutations in the p53 gene.</p>
+  <p id="q4-wrong" class="incorrect">✘ Incorrect. One answer is a genetic mutation disorder.</p>
+</div>
+
+<!-- Question 5 -->
+<div class="question">
+  <p><strong>5. Cancer cells form tumors because they…</strong></p>
+  <label><input type="radio" name="q5" value="A" onclick="checkAnswer('q5','B')"> A. Divide less often than normal cells</label><br>
+  <label><input type="radio" name="q5" value="B" onclick="checkAnswer('q5','B')"> B. Stick together and divide uncontrollably</label><br>
+  <label><input type="radio" name="q5" value="C" onclick="checkAnswer('q5','B')"> C. Make more melanin</label><br>
+  <label><input type="radio" name="q5" value="D" onclick="checkAnswer('q5','B')"> D. Do not contain chromosomes</label>
+
+  <p id="q5-correct" class="correct">✔ Correct! They divide uncontrollably and often clump together.</p>
+  <p id="q5-wrong" class="incorrect">✘ Incorrect. Look for the behavior of cancer cells.</p>
+</div>
+
+</body>
+</html>
