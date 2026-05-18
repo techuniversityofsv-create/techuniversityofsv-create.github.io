@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cancer Unit – 20 Question Quiz</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+    .question { margin-bottom: 28px; }
+    .correct { color: green; font-weight: bold; display: none; }
+    .incorrect { color: red; font-weight: bold; display: none; }
+  </style>
+
+  <script>
+    function checkAnswer(q, correct) {
+      const options = document.getElementsByName(q);
+      options.forEach(o => {
+        const correctMsg = document.getElementById(q + "-correct");
+        const wrongMsg = document.getElementById(q + "-wrong");
+
+        if (o.checked) {
+          if (o.value === correct) {
+            correctMsg.style.display = "block";
+            wrongMsg.style.display = "none";
+          } else {
+            correctMsg.style.display = "none";
+            wrongMsg.style.display = "block";
+          }
+        }
+      });
+    }
+  </script>
+</head>
+
+<body>
+
+<h2>Cancer Unit – 20 Question Quiz</h2>
+
+
+<!-- Q1 -->
+<div class="question">
+  <p><strong>1. What increases cancer risk in older people?</strong></p>
+  <label><input type="radio" name="q1" value="A" onclick="checkAnswer('q1','C')"> A. Slower metabolism</label><br>
+  <label><input type="radio" name="q1" value="B" onclick="checkAnswer('q1','C')"> B. Fewer cell divisions</label><br>
+  <label><input type="radio" name="q1" value="C" onclick="checkAnswer('q1','C')"> C. More cell divisions over time</label><br>
+  <label><input type="radio" name="q1" value="D" onclick="checkAnswer('q1','C')"> D. Higher melanin levels</label>
+  <p id="q1-correct" class="correct">✔ Correct! More cell divisions increase mutation chances.</p>
+  <p id="q1-wrong" class="incorrect">✘ Incorrect. Think about cell division.</p>
+</div>
+
+
+<!-- Q2 -->
+<div class="question">
+  <p><strong>2. Which gene helps regulate the cell cycle?</strong></p>
+  <label><input type="radio" name="q2" value="A" onclick="checkAnswer('q2','B')"> A. Melanin</label><br>
+  <label><input type="radio" name="q2" value="B" onclick="checkAnswer('q2','B')"> B. p53</label><br>
+  <label><input type="radio" name="q2" value="C" onclick="checkAnswer('q2','B')"> C. Hemoglobin</label><br>
+  <label><input type="radio" name="q2" value="D" onclick="checkAnswer('q2','B')"> D. Amylase</label>
+  <p id="q2-correct" class="correct">✔ Correct! p53 regulates checkpoints in the cell cycle.</p>
+  <p id="q2-wrong" class="incorrect">✘ Incorrect.</p>
+</div>
+
+
+<!-- Q3 -->
+<div class="question">
+  <p><strong>3. Cancer cells often have…</strong></p>
+  <label><input type="radio" name="q3" value="A" onclick="checkAnswer('q3','C')"> A. No DNA</label><br>
+  <label><input type="radio" name="q3" value="B" onclick="checkAnswer('q3','C')"> B. Identical shapes to normal cells</label><br>
+  <label><input type="radio" name="q3" value="C" onclick="checkAnswer('q3','C')"> C. Irregular shapes and they stick together</label><br>
+  <label><input type="radio" name="q3" value="D" onclick="checkAnswer('q3','C')"> D. No nucleus</label>
+  <p id="q3-correct" class="correct">✔ Correct!</p>
+  <p id="q3-wrong" class="incorrect">✘ Incorrect.</p>
+</div>
+
+
+<!-- Q4 -->
+<div class="question">
+  <p><strong>4. When cancer cells clump together, they form…</strong></p>
+  <label><input type="radio" name="q4" value="A" onclick="checkAnswer('q4','B')"> A. Enzymes</label><br>
+  <label><input type="radio" name="q4" value="B" onclick="checkAnswer('q4','B')"> B. Tumors</label><br>
+  <label><input type="radio" name="q4" value="C" onclick="checkAnswer('q4','B')"> C. Carbohydrates</label><br>
+  <label><input type="radio" name="q4" value="D" onclick="checkAnswer('q4','B')"> D. Blood cells</label>
+  <p id="q4-correct" class="correct">✔ Correct!</p>
+  <p id="q4-wrong" class="incorrect">✘ Incorrect.</p>
+</div>
+
+
+<!-- Q5 -->
+<div class="question">
+  <p><strong>5. Tumors can…</strong></p>
+  <label><input type="radio" name="q5" value="A" onclick="checkAnswer('q5','C')"> A. Strengthen tissues</label><br>
+  <label><input type="radio" name="q5" value="B" onclick="checkAnswer('q5','C')"> B. Produce hormones</label><br>
+  <label><input type="radio" name="q5" value="C" onclick="checkAnswer('q5','C')"> C. Invade and disrupt tissues</label><br>
+  <label><input type="radio" name="q5" value="D" onclick="checkAnswer('q5','C')"> D. Increase energy levels</label>
+  <p id="q5-correct" class="correct">✔ Correct!</p>
+  <p id="q5-wrong" class="incorrect">✘ Incorrect.</p>
+</div>
+
+
+<!-- Q6 -->
+<div class="question">
+  <p><strong>6. DNA replication mistakes cause…</strong></p>
+  <label><input type="radio" name="q6" value="A" onclick="checkAnswer('q6','B')"> A. Stronger cells</label><br>
+  <label><input type="radio" name="q6" value="B" onclick="checkAnswer('q6','B')"> B. Mutations</label><br>
+  <label><input type="radio" name="q6" value="C" onclick="checkAnswer('q6','B')"> C. More melanin</label><br>
+  <label><input type="radio" name="q6" value="D" onclick="checkAnswer('q6','B')"> D. Taller height</label>
+  <p id="q6-correct" class="correct">✔ Correct!</p>
+  <p id="q6-wrong" class="incorrect">✘ Incorrect.</p>
+</div>
+
+
+<!-- Q7 -->
+<div class="question">
+  <p><strong>7. UV radiation can…</strong></p>
+  <label><input type="radio" name="q7" value="A" onclick="checkAnswer('q7','C')"> A. Heal DNA</label><br>
+  <label><input type="radio" name="q7" value="B" onclick="checkAnswer('q7','C')"> B. Make cells stop dividing</label><br>
+  <label><input type="radio" name="q7" value="C" onclick="checkAnswer('q7','C')"> C. Cause mutations in DNA</label><br>
+  <label><input type="radio" name="q7" value="D" onclick="checkAnswer('q7','C')"> D. Add chromosomes</label>
+  <p id="q7-correct" class="correct">✔ Correct!</p>
+  <p id="q7-wrong" class="incorrect">✘ Incorrect.</p>
+</div>
+
+
+<!-- Q8 -->
+<div class="question">
+  <p><strong>8. Why do tall people have slightly higher cancer risk?</strong></p>
+  <label><input type="radio" name="q8" value="A" onclick="checkAnswer('q8','B')"> A. Poor diet</label><br>
+  <label><input type="radio" name="q8" value="B" onclick="checkAnswer('q8','B')"> B. They have more dividing cells</label><br>
+  <label><input type="radio" name="q8" value="C" onclick="checkAnswer('q8','B')"> C. Lack of melanin</label><br>
+  <label><input type="radio" name="q8" value="D" onclick="checkAnswer('q8','B')"> D. Their organs grow slower</label>
+  <p id="q8-correct" class="correct">✔ Correct!</p>
+  <p id="q8-wrong" class="incorrect">✘ Incorrect.</p>
+</div>
+
+
+<!-- Q9 -->
+<div class="question">
+  <p><strong>9. Why don’t elephants get cancer often?</strong></p>
+  <label><input type="radio" name="q9" value="A" onclick="checkAnswer('q9','B')"> A. They are vegetarian</label><br>
+  <label><input type="radio" name="q9" value="B" onclick="checkAnswer('q9','B')"> B. They have many copies of p53</label><br>
+  <label><input type="radio" name="q9" value="C" onclick="checkAnswer('q9','B')"> C. They sleep long hours</label><br>
+  <label><input type="radio" name="q9" value="D" onclick="checkAnswer('q9','B')"> D. Their DNA is double length</label>
+  <p id="q9-correct" class="correct">✔ Correct!</p>
+  <p id="q9-wrong" class="incorrect">✘ Incorrect.</p>
+</div>
+
+
+<!-- Q10 -->
+<div class="question">
+  <p><strong>10. What happens when p53 fails?</strong></p>
+  <label><input type="radio" name="q10" value="A" onclick="checkAnswer('q10','B')"> A. Cells stop dividing</label><br>
+  <label><input type="radio" name="q10" value="B" onclick="checkAnswer('q10','B')"> B. Cells divide uncontrollably</label><br>
+  <label><input type="radio" name="q10" value="C" onclick="checkAnswer('q10','B')"> C. Cells shrink</label><br>
+  <label><input type="radio" name="q10" value="D" onclick="checkAnswer('q10','B')"> D. Cells turn blue</label>
+  <p id="q10-correct" class="correct">✔ Correct!</p>
+  <p id="q10-wrong" class="incorrect">✘ Incorrect.</p>
+</div>
+
+
+<!-- Q11 -->
+<div class="question">
+  <p><strong>11. Mutations in p53 may lead to…</strong></p>
+  <label><input type="radio" name="q11" value="A" onclick="checkAnswer('q11','B')"> A. Better protein function</label><br>
+  <label><input type="radio" name="q11" value="B" onclick="checkAnswer('q11','B')"> B. Proteins with different structures</label><br>
+  <label><input type="radio" name="q11" value="C" onclick="checkAnswer('q11','B')"> C. Stronger bones</label><br>
+  <label><input type="radio" name="q11" value="D" onclick="checkAnswer('q11','B')"> D. Fewer chromosomes</label>
+  <p id="q11-correct" class="correct">✔ Correct!</p>
+  <p id="q11-wrong" class="incorrect">✘ Incorrect.</p>
+</div>
+
+
+<!-- Q12 -->
+<div class="question">
+  <p><strong>12. An inherited p53 mutation condition is…</strong></p>
+  <label><input type="radio" name="q12" value="A" onclick="checkAnswer('q12','C')"> A. Down syndrome</label><br>
+  <label><input type="radio" name="q12" value="B" onclick="checkAnswer('q12','C')"> B. Asthma</label><br>
+  <label><input type="radio" name="q12" value="C" onclick="checkAnswer('q12','C')"> C. Li-Fraumeni syndrome</label><br>
+  <label><input type="radio" name="q12" value="D" onclick="checkAnswer('q12','C')"> D. Autism</label>
+  <p id="q12-correct" class="correct">✔ Correct!</p>
+  <p id="q12-wrong" class="incorrect">✘ Incorrect.</p>
+</div>
+
+
+<!-- Q13 -->
+<div class="question">
+  <p><strong>13. During meiosis, crossing over creates…</strong></p>
+  <label><input type="radio" name="q13" value="A" onclick="checkAnswer('q13','B')"> A. Identical chromosomes</label><br>
+  <label><input type="radio" name="q13" value="B" onclick="checkAnswer('q13','B')"> B. New allele combinations</label><br>
+  <label><input type="radio" name="q13" value="C" onclick="checkAnswer('q13','B')"> C. Fewer genes</label><br>
+  <label><input type="radio" name="q13" value="D" onclick="checkAnswer('q13','B')"> D. More melanin</label>
+  <p id="q13-correct" class="correct">✔ Correct!</p>
+  <p id="q13-wrong" class="incorrect">✘ Incorrect.</p>
+</div>
+
+
+<!-- Q14 -->
+<div class="question">
+  <p><strong>14. Cancer incidence varies by region due to…</strong></p>
+  <label><input type="radio" name="q14" value="A" onclick="checkAnswer('q14','B')"> A. Language differences</label><br>
+  <label><input type="radio" name="q14" value="B" onclick="checkAnswer('q14','B')"> B. Access to health care</label><br>
+  <label><input type="radio" name="q14" value="C" onclick="checkAnswer('q14','B')"> C. Favorite foods</label><br>
+  <label><input type="radio" name="q14" value="D" onclick="checkAnswer('q14','B')"> D. Shoe size</label>
+  <p id="q14-correct" class="correct">✔ Correct!</p>
+  <p id="q14-wrong" class="incorrect">✘ Incorrect.</p>
+</div>
+
+
+<!-- Q15 -->
+<div class="question">
+  <p><strong>15. Melanin protects the skin by…</strong></p>
+  <label><input type="radio" name="q15" value="A" onclick="checkAnswer('q15','A')"> A. Absorbing UV light</label><br>
+  <label><input type="radio" name="q15" value="B" onclick="checkAnswer('q15','A')"> B. Speeding up mitosis</label><br>
+  <label><input type="radio" name="q15" value="C" onclick="checkAnswer('q15','A')"> C. Removing mutations</label><br>
+  <label><input type="radio" name="q15" value="D" onclick="checkAnswer('q15','A')"> D. Thickening the skin</label>
+  <p id="q15-correct" class="correct">✔ Correct!</p>
+  <p id="q15-wrong" class="incorrect">✘ Incorrect.</p>
+</div>
+
+
+<!-- Q16 -->
+<div class="question">
+  <p><strong>16. Chemotherapy affects…</strong></p>
+  <label><input type="radio" name="q16" value="A" onclick="checkAnswer('q16','C')"> A. Only cancer cells</label><br>
+  <label><input type="radio" name="q16" value="B" onclick="checkAnswer('q16','C')"> B. Only muscle cells</label><br>
+  <label><input type="radio" name="q16" value="C" onclick="checkAnswer('q16','C')"> C. Both cancer and healthy cells</label><br>
+  <label><input type="radio" name="q16" value="D" onclick="checkAnswer('q16','C')"> D. Only hair cells</label>
+  <p id="q16-correct" class="correct">✔ Correct!</p>
+  <p id="q16-wrong" class="incorrect">✘ Incorrect.</p>
+</div>
+
+
+<!-- Q17 -->
+<div class="question">
+  <p><strong>17. A common chemotherapy side effect is…</strong></p>
+  <label><input type="radio" name="q17" value="A" onclick="checkAnswer('q17','C')"> A. Faster hair growth</label><br>
+  <label><input type="radio" name="q17" value="B" onclick="checkAnswer('q17','C')"> B. Taller height</label><br>
+  <label><input type="radio" name="q17" value="C" onclick="checkAnswer('q17','C')"> C. Hair loss</label><br>
+  <label><input type="radio" name="q17" value="D" onclick="checkAnswer('q17','C')"> D. Stronger muscles</label>
+  <p id="q17-correct" class="correct">✔ Correct!</p>
+  <p id="q17-wrong" class="incorrect">✘ Incorrect.</p>
+</div>
+
+
+<!-- Q18 -->
+<div class="question">
+  <p><strong>18. Pedigrees help scientists understand…</strong></p>
+  <label><input type="radio" name="q18" value="A" onclick="checkAnswer('q18','B')"> A. Weather</label><br>
+  <label><input type="radio" name="q18" value="B" onclick="checkAnswer('q18','B')"> B. How traits are inherited</label><br>
+  <label><input type="radio" name="q18" value="C" onclick="checkAnswer('q18','B')"> C. Sleep patterns</label><br>
+  <label><input type="radio" name="q18" value="D" onclick="checkAnswer('q18','B')"> D. Cell size</label>
+  <p id="q18-correct" class="correct">✔ Correct!</p>
+  <p id="q18-wrong" class="incorrect">✘ Incorrect.</p>
+</div>
+
+
+<!-- Q19 -->
+<div class="question">
+  <p><strong>19. An environmental factor that increases cancer risk is…</strong></p>
+  <label><input type="radio" name="q19" value="A" onclick="checkAnswer('q19','B')"> A. Reading books</label><br>
+  <label><input type="radio" name="q19" value="B" onclick="checkAnswer('q19','B')"> B. UV exposure</label><br>
+  <label><input type="radio" name="q19" value="C" onclick="checkAnswer('q19','B')"> C. Sleeping more</label><br>
+  <label><input type="radio" name="q19" value="D" onclick="checkAnswer('q19','B')"> D. Drinking water</label>
+  <p id="q19-correct" class="correct">✔ Correct!</p>
+  <p id="q19-wrong" class="incorrect">✘ Incorrect.</p>
+</div>
+
+
+<!-- Q20 -->
+<div class="question">
+  <p><strong>20. Social determinants of health can influence…</strong></p>
+  <label><input type="radio" name="q20" value="A" onclick="checkAnswer('q20','C')"> A. DNA structure</label><br>
+  <label><input type="radio" name="q20" value="B" onclick="checkAnswer('q20','C')"> B. Height</label><br>
+  <label><input type="radio" name="q20" value="C" onclick="checkAnswer('q20','C')"> C. Access to cancer treatment</label><br>
+  <label><input type="radio" name="q20" value="D" onclick="checkAnswer('q20','C')"> D. Number of chromosomes</label>
+  <p id="q20-correct" class="correct">✔ Correct!</p>
+  <p id="q20-wrong" class="incorrect">✘ Incorrect.</p>
+</div>
+
+</body>
+</html>
