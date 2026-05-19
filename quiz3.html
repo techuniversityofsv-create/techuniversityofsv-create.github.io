@@ -1,0 +1,467 @@
+
+Conversation with Gemini
+Generate html quiz with more than 50 questions where each question will have answer shown after clicking radio button and will calcualte total score each time radio is clicked
+
+Here is the complete, interactive HTML quiz containing 51 questions based on the provided document. It includes built-in HTML, CSS, and JavaScript.
+
+To use it, simply save the code below into a file named quiz.html and open it in any web browser. The quiz will automatically grade your answers as you select them and update your total score in real time.
+
+HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ecosystems & Conservation Quiz</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f7f6;
+        color: #333;
+        line-height: 1.6;
+        padding: 20px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    h1 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 5px;
+    }
+    .score-container {
+        position: sticky;
+        top: 0;
+        background-color: #2c3e50;
+        color: #fff;
+        padding: 15px 20px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        z-index: 1000;
+    }
+    .question-card {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        border-left: 5px solid #3498db;
+    }
+    .question-text {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+    .options-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .option-label {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        background-color: #f9f9f9;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+    .option-label:hover:not(.disabled) {
+        background-color: #eaf2f8;
+    }
+    .option-label.disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+    }
+    input[type="radio"] {
+        margin-right: 10px;
+        transform: scale(1.2);
+    }
+    .feedback {
+        margin-top: 15px;
+        font-weight: bold;
+        display: none;
+    }
+    .correct-feedback {
+        color: #27ae60;
+    }
+    .incorrect-feedback {
+        color: #c0392b;
+    }
+    .option-label.correct-answer {
+        background-color: #d5f5e3;
+        border-color: #27ae60;
+        color: #1e8449;
+    }
+    .option-label.incorrect-answer {
+        background-color: #fadbd8;
+        border-color: #c0392b;
+        color: #922b21;
+    }
+    .citation {
+        font-size: 0.85rem;
+        color: #7f8c8d;
+        font-style: italic;
+    }
+</style>
+</head>
+<body>
+
+    <h1>Ecosystems & Conservation Quiz</h1>
+    <div class="score-container">
+        Total Score: <span id="score">0</span> / 51
+    </div>
+
+    <div id="quiz-container"></div>
+
+<script>
+    const quizData = [
+        {
+            q: "What is the primary goal of the 30 by 30 Initiative? <span class='citation'>[cite: 969]</span>",
+            options: ["To protect 30% of lands and waters by 2030", "To reduce carbon emissions by 30% by 2030", "To plant 30 million trees", "To increase wildebeest populations by 30%"],
+            a: 0
+        },
+        {
+            q: "Did the United States pass a national 30 by 30 initiative prior to 2022? <span class='citation'>[cite: 970]</span>",
+            options: ["Yes, it was unanimously passed", "No, but 9 states have passed local initiatives", "Yes, but only for ocean waters", "No, no states have adopted it"],
+            a: 1
+        },
+        {
+            q: "What does the term 'Siringet' (Serengeti) mean in the Maasai language? <span class='citation'>[cite: 1007]</span>",
+            options: ["Place of many animals", "Land of endless space", "The great migration", "Valley of the lions"],
+            a: 1
+        },
+        {
+            q: "In what year was the Serengeti National Park officially established? <span class='citation'>[cite: 1006]</span>",
+            options: ["1919", "1933", "1951", "1964"],
+            a: 2
+        },
+        {
+            q: "Which two entities merged in 1964 to form the nation of Tanzania? <span class='citation'>[cite: 1025]</span>",
+            options: ["Kenya and Uganda", "Tanganyika and Zanzibar", "Rwanda and Burundi", "Congo and Tanganyika"],
+            a: 1
+        },
+        {
+            q: "Which European country originally colonized Tanganyika in the 1880s? <span class='citation'>[cite: 1010]</span>",
+            options: ["Britain", "France", "Germany", "Belgium"],
+            a: 2
+        },
+        {
+            q: "Why is the grass in the northern Serengeti region considered less nutritious? <span class='citation'>[cite: 614]</span>",
+            options: ["It stores its nutrients in the roots", "It is completely consumed by insects", "The soil lacks clay", "It is burned annually by fires"],
+            a: 0
+        },
+        {
+            q: "Which is the only river in the Serengeti National Park that flows all year long? <span class='citation'>[cite: 615]</span>",
+            options: ["Hoh River", "Nile River", "Mara River", "Zambezi River"],
+            a: 2
+        },
+        {
+            q: "What type of environment characterizes the southern Serengeti? <span class='citation'>[cite: 619, 620]</span>",
+            options: ["Dense forests", "Short-grass plains with no trees", "Wetlands and marshes", "Mountainous terrain"],
+            a: 1
+        },
+        {
+            q: "During which months does the wildebeest mass calving event occur? <span class='citation'>[cite: 622]</span>",
+            options: ["January-February", "April-May", "July-August", "October-November"],
+            a: 0
+        },
+        {
+            q: "Why is the grass in the southern Serengeti highly nutritious early in the wet season? <span class='citation'>[cite: 621, 623]</span>",
+            options: ["It grows near the Mara River", "Nutrients from the soil end up in the blades of grass", "It is fertilized by migrating birds", "It is a genetically modified species"],
+            a: 1
+        },
+        {
+            q: "In which region of the Serengeti does wildebeest mating primarily occur? <span class='citation'>[cite: 627]</span>",
+            options: ["North", "South", "East", "West"],
+            a: 3
+        },
+        {
+            q: "What environmental feature makes the western Serengeti dangerous for wildebeest? <span class='citation'>[cite: 626]</span>",
+            options: ["Steep cliffs", "Long grass, bushes, and trees where predators can hide", "Deep, fast-moving rivers", "Constant freezing temperatures"],
+            a: 1
+        },
+        {
+            q: "What happens to the soil in the western Serengeti during the wet season? <span class='citation'>[cite: 631]</span>",
+            options: ["It turns into quicksand", "It becomes too dry to support grass", "It is clay-like and sticks to the wildebeest's hooves", "It washes away into the Mara River"],
+            a: 2
+        },
+        {
+            q: "What common event in July reduces food availability for wildebeest in the western Serengeti? <span class='citation'>[cite: 632]</span>",
+            options: ["Flooding", "Fire in the tall grass", "Snowstorms", "Locust swarms"],
+            a: 1
+        },
+        {
+            q: "How have scientists counted the Serengeti wildebeest population every year since the 1950s? <span class='citation'>[cite: 351]</span>",
+            options: ["Using satellite imagery", "By airplane", "By tagging individuals", "By setting up camera traps"],
+            a: 1
+        },
+        {
+            q: "How long is the proposed two-lane road that would cut through the northern region of Serengeti National Park? <span class='citation'>[cite: 715]</span>",
+            options: ["10 kilometers", "50 kilometers", "100 kilometers", "500 kilometers"],
+            a: 1
+        },
+        {
+            q: "What is a primary reason the Tanzanian government wants to build the road? <span class='citation'>[cite: 716]</span>",
+            options: ["To increase foreign economic interest and bring development", "To create a racetrack for tourists", "To block the wildebeest migration intentionally", "To expand the national park boundaries"],
+            a: 0
+        },
+        {
+            q: "How much revenue does the tourism industry generate per year in Tanzania? <span class='citation'>[cite: 719]</span>",
+            options: ["$50 million", "$250 million", "US$1.279 billion", "US$10 billion"],
+            a: 2
+        },
+        {
+            q: "What is the maximum speed limit for transport trucks in protected areas like Serengeti National Park? <span class='citation'>[cite: 747]</span>",
+            options: ["30 km/hr", "50 km/hr", "80 km/hr", "100 km/hr"],
+            a: 1
+        },
+        {
+            q: "What driving restriction currently exists in the Serengeti National Park? <span class='citation'>[cite: 748]</span>",
+            options: ["No trucks allowed", "No night driving", "Only electric vehicles allowed", "No driving during the wet season"],
+            a: 1
+        },
+        {
+            q: "Which focal organism in the Everglades was put on the federal endangered species list in 1973? <span class='citation'>[cite: 776]</span>",
+            options: ["American Alligator", "Florida Panther", "Manatee", "Bald Eagle"],
+            a: 2
+        },
+        {
+            q: "What is considered the major threat to manatees? <span class='citation'>[cite: 787, 788]</span>",
+            options: ["Alligators", "Sharks", "Humans (habitat loss, coastal development)", "Cold weather"],
+            a: 2
+        },
+        {
+            q: "What was the primary cause of the record 1,100 manatee deaths in 2021? <span class='citation'>[cite: 802]</span>",
+            options: ["Boat collisions", "Starvation due to dying seagrass beds", "Predation by invasive pythons", "A viral outbreak"],
+            a: 1
+        },
+        {
+            q: "What is identified as the biggest invasive species threat in the Great Lakes? <span class='citation'>[cite: 883]</span>",
+            options: ["Asian Carp", "Sea Lamprey", "Quagga Mussels", "Zebra Mussels"],
+            a: 2
+        },
+        {
+            q: "What do quagga mussels eat that negatively impacts the Great Lakes ecosystem? <span class='citation'>[cite: 884]</span>",
+            options: ["Small fish", "Phytoplankton", "Seaweed", "Fish eggs"],
+            a: 1
+        },
+        {
+            q: "What chemical is used in the Great Lakes to kill the larvae of invasive sea lampreys? <span class='citation'>[cite: 890]</span>",
+            options: ["Pesticide-X", "Lampricide", "Chlorine", "Algaecide"],
+            a: 1
+        },
+        {
+            q: "What is a main goal of the Hoh River Conservation and Recreation area? <span class='citation'>[cite: 830]</span>",
+            options: ["To build a hydroelectric dam", "To conserve and connect critical habitat for salmon populations", "To increase commercial logging", "To introduce non-native sport fish"],
+            a: 1
+        },
+        {
+            q: "How do dead salmon benefit the Hoh River ecosystem? <span class='citation'>[cite: 845, 846]</span>",
+            options: ["They block the river flow", "They decompose and provide important nutrients to the trees", "They prevent bears from entering the area", "They feed the local human population only"],
+            a: 1
+        },
+        {
+            q: "What did 'the Boldt Decision' do in Washington State? <span class='citation'>[cite: 853, 854]</span>",
+            options: ["Banned all fishing in the Hoh River", "Allocated 50% of the annual catch to treaty tribes", "Removed all dams from the river", "Privatized the entire river shoreline"],
+            a: 1
+        },
+        {
+            q: "At what water temperature do salmon start to die off? <span class='citation'>[cite: 862]</span>",
+            options: ["Above 55℉", "Above 60℉", "Above 64℉", "Above 70℉"],
+            a: 3
+        },
+        {
+            q: "In what year was Saguaro National Park established to protect the saguaro cactus? <span class='citation'>[cite: 923]</span>",
+            options: ["1899", "1916", "1933", "1951"],
+            a: 2
+        },
+        {
+            q: "Approximately how much does a saguaro cactus grow in the first eight years of its life? <span class='citation'>[cite: 924]</span>",
+            options: ["1.0-1.5 inches", "1-2 feet", "3-4 feet", "10 feet"],
+            a: 0
+        },
+        {
+            q: "At what age does a saguaro cactus typically begin to flower? <span class='citation'>[cite: 925]</span>",
+            options: ["5-10 years", "15-20 years", "35-50 years", "Over 100 years"],
+            a: 2
+        },
+        {
+            q: "Which invasive plant species is rapidly spreading and threatening Saguaro National Park? <span class='citation'>[cite: 951]</span>",
+            options: ["Kudzu", "Buffelgrass", "Cheatgrass", "Tumbleweed"],
+            a: 1
+        },
+        {
+            q: "Why is buffelgrass particularly dangerous to the Saguaro ecosystem? <span class='citation'>[cite: 953]</span>",
+            options: ["It poisons the soil", "It blocks out the sun completely", "It increases fuel loads, making fires burn hotter and longer", "It attracts destructive insects"],
+            a: 2
+        },
+        {
+            q: "What was the effect of the February 2011 freeze event in Saguaro National Park? <span class='citation'>[cite: 941]</span>",
+            options: ["All cacti died", "Many smaller saguaros died while older, larger plants survived", "Only the nurse trees died", "It caused a massive fire"],
+            a: 1
+        },
+        {
+            q: "Which bird species relies on the large saguaro cactus for shelter? <span class='citation'>[cite: 936]</span>",
+            options: ["Bald Eagle", "Gila Woodpecker", "Desert Owl", "Hummingbird"],
+            a: 1
+        },
+        {
+            q: "Which Indigenous tribe harvests the fruit of the Saguaro to make syrup, jam, and wine? <span class='citation'>[cite: 948]</span>",
+            options: ["Navajo", "Apache", "Tohono O’odham", "Hopi"],
+            a: 2
+        },
+        {
+            q: "What historical event in the American West served as a warning to early conservationists in the Serengeti? <span class='citation'>[cite: 1014]</span>",
+            options: ["The Dust Bowl", "The extinction of the passenger pigeon", "The killing off of most of the 30 million bison", "The California Gold Rush"],
+            a: 2
+        },
+        {
+            q: "Which group repeatedly protested their eviction from the Serengeti National Park when it was established? <span class='citation'>[cite: 1020]</span>",
+            options: ["The British", "The Germans", "The Maasai", "The French"],
+            a: 2
+        },
+        {
+            q: "Scientists from which organization were hired in 1956 to gather information on Serengeti animal movements? <span class='citation'>[cite: 1023]</span>",
+            options: ["San Diego Zoo", "Frankfurt Zoological Garden", "London Zoological Society", "Smithsonian Institution"],
+            a: 1
+        },
+        {
+            q: "How many days does it take for some wildebeest to run to the southern plains when the rainy season starts? <span class='citation'>[cite: 618]</span>",
+            options: ["Two days", "One week", "Two weeks", "One month"],
+            a: 0
+        },
+        {
+            q: "What is Diporeia? <span class='citation'>[cite: 895]</span>",
+            options: ["A type of native fish", "A type of zooplankton that relies on phytoplankton", "An invasive plant", "A chemical used in the Great Lakes"],
+            a: 1
+        },
+        {
+            q: "Approximately how many people in cities like Chicago and Milwaukee rely on the Great Lakes for drinking water? <span class='citation'>[cite: 899]</span>",
+            options: ["1 million", "5 million", "12 million", "50 million"],
+            a: 2
+        },
+        {
+            q: "What is the estimated value of the Great Lakes fishing industry per year? <span class='citation'>[cite: 903]</span>",
+            options: ["$100 million", "$1 billion", "$7 billion", "$20 billion"],
+            a: 2
+        },
+        {
+            q: "According to public opinion data, approximately how many voters support setting a nationwide 30 by 30 goal? <span class='citation'>[cite: 971]</span>",
+            options: ["1 out of 5", "2 out of 5", "3 out of 5", "Over 4 out of 5"],
+            a: 3
+        },
+        {
+            q: "Who expressed opposition to the 30 by 30 Initiative due to 97% of his state's land being privately owned? <span class='citation'>[cite: 986]</span>",
+            options: ["Senator Pete Ricketts", "President Jakaya Kikwete", "Judge George Boldt", "Betty Osceold"],
+            a: 0
+        },
+        {
+            q: "How much grass can a manatee eat per day? <span class='citation'>[cite: 783]</span>",
+            options: ["10 pounds", "30 pounds", "More than 60 pounds", "100 pounds"],
+            a: 2
+        },
+        {
+            q: "The Everglades provide drinking water for approximately how many people? <span class='citation'>[cite: 770]</span>",
+            options: ["1 million", "3 million", "More than 7 million", "15 million"],
+            a: 2
+        },
+        {
+            q: "What was the result of a 2011 freeze event on the saguaro cactus? <span class='citation'>[cite: 941]</span>",
+            options: ["All the cacti died", "The large cacti died but the small ones survived", "Many small saguaros died while the old, larger plants survived", "It caused a sudden bloom of flowers"],
+            a: 2
+        }
+    ];
+
+    const container = document.getElementById('quiz-container');
+    const scoreDisplay = document.getElementById('score');
+    let currentScore = 0;
+    const answeredQuestions = new Set();
+
+    function buildQuiz() {
+        quizData.forEach((item, qIndex) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+
+            const questionText = document.createElement('div');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `${qIndex + 1}. ${item.q}`;
+            card.appendChild(questionText);
+
+            const optionsContainer = document.createElement('div');
+            optionsContainer.className = 'options-container';
+
+            item.options.forEach((optText, optIndex) => {
+                const label = document.createElement('label');
+                label.className = 'option-label';
+                label.id = `label-${qIndex}-${optIndex}`;
+
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `question-${qIndex}`;
+                radio.value = optIndex;
+
+                radio.addEventListener('change', () => handleSelection(qIndex, optIndex, item.a));
+
+                label.appendChild(radio);
+                label.appendChild(document.createTextNode(optText));
+                optionsContainer.appendChild(label);
+            });
+
+            card.appendChild(optionsContainer);
+
+            const feedback = document.createElement('div');
+            feedback.id = `feedback-${qIndex}`;
+            feedback.className = 'feedback';
+            card.appendChild(feedback);
+
+            container.appendChild(card);
+        });
+    }
+
+    function handleSelection(qIndex, selectedIndex, correctIndex) {
+        if (answeredQuestions.has(qIndex)) return;
+        
+        answeredQuestions.add(qIndex);
+
+        const radios = document.querySelectorAll(`input[name="question-${qIndex}"]`);
+        radios.forEach(radio => {
+            radio.disabled = true;
+            radio.parentElement.classList.add('disabled');
+        });
+
+        const feedbackEl = document.getElementById(`feedback-${qIndex}`);
+        feedbackEl.style.display = 'block';
+
+        const correctLabel = document.getElementById(`label-${qIndex}-${correctIndex}`);
+        correctLabel.classList.add('correct-answer');
+
+        if (selectedIndex === correctIndex) {
+            currentScore++;
+            scoreDisplay.textContent = currentScore;
+            feedbackEl.textContent = 'Correct!';
+            feedbackEl.className = 'feedback correct-feedback';
+        } else {
+            const selectedLabel = document.getElementById(`label-${qIndex}-${selectedIndex}`);
+            selectedLabel.classList.add('incorrect-answer');
+            feedbackEl.textContent = 'Incorrect.';
+            feedbackEl.className = 'feedback incorrect-feedback';
+        }
+    }
+
+    // Initialize Quiz
+    buildQuiz();
+</script>
+
+</body>
+</html>
+Gemini is still catching up on your past chats. You'll get a more personalized experience soon.
+
+
+
+Gemini is AI and can make mistakes.
+
