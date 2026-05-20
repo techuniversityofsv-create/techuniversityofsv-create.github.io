@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Fire Systems Quiz — Part 2 (26–50)</title>
+    <title>Fire Systems Quiz — Part 1 (1–25)</title>
     <style>
         body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; }
         .question { margin-top: 20px; font-weight: bold; }
         label { display: block; cursor: pointer; margin-bottom: 5px; }
+        .feedback { margin-top: 5px; font-weight: bold; }
+        .correct { color: green; }
+        .wrong { color: red; }
         #results { margin-top: 30px; font-size: 22px; font-weight: bold; }
         button { margin-top: 20px; padding: 10px 20px; font-size: 18px; }
     </style>
 </head>
 <body>
 
-<h1>Fire Systems Quiz — Part 2 (Questions 26–50)</h1>
+<h1>Fire Systems Quiz — Part 1 (Questions 1–25)</h1>
 
 <form id="quizForm"></form>
 
@@ -20,6 +23,7 @@
 <div id="results"></div>
 
 <script>
+
 // ==============================
 // QUIZ QUESTIONS 26–50
 // ==============================
@@ -227,28 +231,62 @@ const quizQuestions = [
 
 ];
 
-// ==============================
-// RENDER QUESTIONS
-// ==============================
+
+// build quiz
 const quizForm = document.getElementById("quizForm");
+
 quizQuestions.forEach((q, index) => {
-    quizForm.innerHTML += `
+    const qDiv = document.createElement("div");
+
+    qDiv.innerHTML = `
         <div class="question">${q.question}</div>
-        ${q.options.map((o,i)=>
-          `<label><input type="radio" name="q${index}" value="${i}"> ${o}</label>`
-        ).join("")}
+        <div id="options-${index}"></div>
+        <div id="feedback-${index}" class="feedback"></div>
     `;
+
+    const optionsDiv = qDiv.querySelector(`#options-${index}`);
+
+    q.options.forEach((o, i) => {
+        const label = document.createElement("label");
+
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = "q" + index;
+        input.value = i;
+
+        input.addEventListener("change", () => {
+            showFeedback(index, i);
+        });
+
+        label.appendChild(input);
+        label.append(" " + o);
+        optionsDiv.appendChild(label);
+    });
+
+    quizForm.appendChild(qDiv);
 });
 
-// ==============================
-// SCORING FUNCTION
-// ==============================
+function showFeedback(qIndex, selected) {
+    const q = quizQuestions[qIndex];
+    const feedback = document.getElementById(`feedback-${qIndex}`);
+
+    if (selected === q.correct) {
+        feedback.innerHTML = "✅ Correct";
+        feedback.className = "feedback correct";
+    } else {
+        feedback.innerHTML = "❌ Wrong. Correct answer: " + q.options[q.correct];
+        feedback.className = "feedback wrong";
+    }
+}
+
 function submitQuiz() {
     let score = 0;
+
     quizQuestions.forEach((q, i) => {
         const ans = document.querySelector(`input[name="q${i}"]:checked`);
         if (ans && parseInt(ans.value) === q.correct) score++;
     });
+
     document.getElementById("results").innerHTML =
         "You scored " + score + " out of " + quizQuestions.length;
 }
