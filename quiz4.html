@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fire Systems Quiz — Part 1 (1–25)</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; }
+        .question { margin-top: 20px; font-weight: bold; }
+        label { display: block; cursor: pointer; margin-bottom: 5px; }
+        #results { margin-top: 30px; font-size: 22px; font-weight: bold; }
+        button { margin-top: 20px; padding: 10px 20px; font-size: 18px; }
+    </style>
+</head>
+<body>
+
+<h1>Fire Systems Quiz — Part 1 (Questions 1–25)</h1>
+
+<form id="quizForm"></form>
+
+<button onclick="submitQuiz()">Submit Quiz</button>
+<div id="results"></div>
+
+<script>
+const quizQuestions = [
+    { question: "1. What makes an ecosystem a carbon sink?",
+      options: [
+        "A. It produces more energy than it stores",
+        "B. It stores more carbon than it releases",
+        "C. It is always cold and wet",
+        "D. It has no living organisms"
+      ], correct: 1 },
+
+    { question: "2. Why are carbon sinks more likely to burn?",
+      options: [
+        "A. They have extremely high rainfall",
+        "B. They accumulate dry organic material",
+        "C. They lack vegetation",
+        "D. They are underwater"
+      ], correct: 1 },
+
+    { question: "3. What role does historicity play in fire risk?",
+      options: [
+        "A. It explains only current temperatures",
+        "B. It describes past events that influence current conditions",
+        "C. It predicts the exact time of future fires",
+        "D. It measures how quickly fire spreads"
+      ], correct: 1 },
+
+    { question: "4. What is one consequence of burning a carbon sink?",
+      options: [
+        "A. Decreased CO₂ in the atmosphere",
+        "B. Increased CO₂ released into the atmosphere",
+        "C. Permanent elimination of plants",
+        "D. Higher oxygen levels"
+      ], correct: 1 },
+
+    { question: "5. The Great Dismal Swamp is an example of:",
+      options: [
+        "A. A carbon source",
+        "B. A carbon sink",
+        "C. A desert ecosystem",
+        "D. A tundra ecosystem"
+      ], correct: 1 },
+
+    { question: "6. Why did students create small-group models in the unit?",
+      options: [
+        "A. To memorize facts about wildfires",
+        "B. To explain how matter and energy move through systems",
+        "C. To practice drawing landscapes",
+        "D. To calculate temperatures"
+      ], correct: 1 },
+
+    { question: "7. What factor can make matter more likely to burn?",
+      options: [
+        "A. High moisture content",
+        "B. Abundant water flow",
+        "C. Accumulated dry biomass",
+        "D. Low sunlight"
+      ], correct: 2 },
+
+    { question: "8. What is the purpose of the Scientists Circle?",
+      options: [
+        "A. To compete on quiz answers",
+        "B. To collaboratively discuss evidence and reasoning",
+        "C. To practice silent reflection",
+        "D. To perform lab safety tasks"
+      ], correct: 1 },
+
+    { question: "9. What does power refer to in environmental historicity?",
+      options: [
+        "A. Electrical power used by homes",
+        "B. Human decision-making that affects ecosystems",
+        "C. The power of wind to spread smoke",
+        "D. The strength of fires"
+      ], correct: 1 },
+
+    { question: "10. What are community agreements used for?",
+      options: [
+        "A. Ensuring productive, respectful scientific discussions",
+        "B. Assigning classroom chores",
+        "C. Creating fire evacuation maps",
+        "D. Scheduling homework"
+      ], correct: 0 },
+
+    { question: "11. Why is feedback important in building models?",
+      options: [
+        "A. It improves accuracy and clarity",
+        "B. It reduces effort needed",
+        "C. It replaces the need for data",
+        "D. It is optional and rarely used"
+      ], correct: 0 },
+
+    { question: "12. Why did students compare their models to other groups?",
+      options: [
+        "A. To find errors and criticize others",
+        "B. To gather different perspectives and refine ideas",
+        "C. To select a winning model",
+        "D. To assign grades"
+      ], correct: 1 },
+
+    { question: "13. What similarity exists among burning carbon sinks?",
+      options: [
+        "A. They become colder when they burn",
+        "B. They release large amounts of CO₂",
+        "C. They always regrow within 24 hours",
+        "D. They stop all energy flow"
+      ], correct: 1 },
+
+    { question: "14. Why are scientists concerned about CO₂ from wildfires?",
+      options: [
+        "A. It may turn into toxic rain",
+        "B. It increases atmospheric greenhouse gases",
+        "C. It reduces sunlight permanently",
+        "D. It cools the planet too quickly"
+      ], correct: 1 },
+
+    { question: "15. What does the Alka-Seltzer bottle investigation simulate?",
+      options: [
+        "A. Plant germination",
+        "B. CO₂ accumulation in Earth's atmosphere",
+        "C. Water pollution",
+        "D. Ocean currents"
+      ], correct: 1 },
+
+    { question: "16. What was the dependent variable in the CO₂ bottle experiment?",
+      options: [
+        "A. Amount of Alka-Seltzer used",
+        "B. Temperature inside the bottle",
+        "C. Color of the bottle",
+        "D. Size of the lamp"
+      ], correct: 1 },
+
+    { question: "17. What did the lamp represent in the bottle experiment?",
+      options: [
+        "A. The Sun",
+        "B. A wildfire",
+        "C. A volcano",
+        "D. The Moon"
+      ], correct: 0 },
+
+    { question: "18. What was the purpose of measuring temperature over time?",
+      options: [
+        "A. To show how CO₂ affects heat retention",
+        "B. To measure bottle strength",
+        "C. To test thermometer accuracy",
+        "D. To compare bottle colors"
+      ], correct: 0 },
+
+    { question: "19. What pattern is seen in global CO₂ and temperature graphs?",
+      options: [
+        "A. CO₂ increases while temperature decreases",
+        "B. CO₂ and temperature both increase together",
+        "C. Both remain constant",
+        "D. Both decrease steadily"
+      ], correct: 1 },
+
+    { question: "20. Why did students simulate carbon atom journeys?",
+      options: [
+        "A. To memorize molecule names",
+        "B. To model movement of matter and energy",
+        "C. To practice rolling dice",
+        "D. To learn math operations"
+      ], correct: 1 },
+
+    { question: "21. In the carbon atom simulation, why does carbon start in the atmosphere?",
+      options: [
+        "A. All carbon on Earth is in the air",
+        "B. It is a major reservoir affected by fires",
+        "C. It is the easiest to draw",
+        "D. The activity required it randomly"
+      ], correct: 1 },
+
+    { question: "22. Where did carbon atoms often spend more time during the simulation?",
+      options: [
+        "A. The deep ocean only",
+        "B. The atmosphere and biosphere",
+        "C. Outer space",
+        "D. The core of the Earth"
+      ], correct: 1 },
+
+    { question: "23. What effect does more CO₂ in the atmosphere have on temperature?",
+      options: [
+        "A. No measurable effect",
+        "B. Temperature decreases",
+        "C. Temperature increases",
+        "D. Temperature cycles randomly"
+      ], correct: 2 },
+
+    { question: "24. Increased atmospheric CO₂ from fires primarily affects:",
+      options: [
+        "A. Rock formation",
+        "B. Global temperature",
+        "C. Volcano eruptions",
+        "D. Ocean salinity"
+      ], correct: 1 },
+
+    { question: "25. Why do students update their personal glossary?",
+      options: [
+        "A. To track important scientific ideas",
+        "B. To store vocabulary for spelling tests",
+        "C. To replace lab notes",
+        "D. To track homework assignments"
+      ], correct: 0 }
+];
+
+const quizForm = document.getElementById("quizForm");
+quizQuestions.forEach((q, index) => {
+    quizForm.innerHTML += `
+        <div class="question">${q.question}</div>
+        ${q.options.map((o,i)=>
+          `<label><input type="radio" name="q${index}" value="${i}"> ${o}</label>`
+        ).join("")}
+    `;
+});
+
+function submitQuiz() {
+    let score = 0;
+    quizQuestions.forEach((q, i) => {
+        const ans = document.querySelector(`input[name="q${i}"]:checked`);
+        if (ans && parseInt(ans.value) === q.correct) score++;
+    });
+    document.getElementById("results").innerHTML = 
+        "You scored " + score + " out of " + quizQuestions.length;
+}
+</script>
+
+</body>
+</html>

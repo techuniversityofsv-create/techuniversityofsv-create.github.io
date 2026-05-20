@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fire Systems Quiz — Part 2 (26–50)</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; }
+        .question { margin-top: 20px; font-weight: bold; }
+        label { display: block; cursor: pointer; margin-bottom: 5px; }
+        #results { margin-top: 30px; font-size: 22px; font-weight: bold; }
+        button { margin-top: 20px; padding: 10px 20px; font-size: 18px; }
+    </style>
+</head>
+<body>
+
+<h1>Fire Systems Quiz — Part 2 (Questions 26–50)</h1>
+
+<form id="quizForm"></form>
+
+<button onclick="submitQuiz()">Submit Quiz</button>
+<div id="results"></div>
+
+<script>
+// ==============================
+// QUIZ QUESTIONS 26–50
+// ==============================
+const quizQuestions = [
+
+{ question: "26. What does the bottle system represent in the CO₂ investigation?",
+  options: [
+    "A. The entire Earth system",
+    "B. The Sun",
+    "C. The soil and rock layer",
+    "D. The biosphere only"
+  ], correct: 0 },
+
+{ question: "27. Why do students underline important information in the CO₂ investigation guide?",
+  options: [
+    "A. To decorate the handout",
+    "B. To identify critical steps and variables",
+    "C. To compare handwriting styles",
+    "D. To help grade the activity"
+  ], correct: 1 },
+
+{ question: "28. What safety rule is emphasized when using hot lamps?",
+  options: [
+    "A. Lamps must be touched frequently",
+    "B. Lamps are fragile and can burn skin",
+    "C. Lamps should be covered with cloth",
+    "D. Lamps can be placed in water"
+  ], correct: 1 },
+
+{ question: "29. Why must bottles be placed exactly 12 inches from the lamp?",
+  options: [
+    "A. To ensure consistent heat exposure",
+    "B. To make them look symmetrical",
+    "C. To prevent melting",
+    "D. To fit more bottles on the table"
+  ], correct: 0 },
+
+{ question: "30. The independent variable in the CO₂ investigation is:",
+  options: [
+    "A. Amount of light",
+    "B. Amount of CO₂ in each bottle",
+    "C. Color of the bottle",
+    "D. Number of students per group"
+  ], correct: 1 },
+
+{ question: "31. The dependent variable in the investigation is:",
+  options: [
+    "A. Temperature change inside the bottle",
+    "B. Size of the bottle",
+    "C. Number of lamps used",
+    "D. Type of gloves worn"
+  ], correct: 0 },
+
+{ question: "32. Why do scientists use directional hypotheses?",
+  options: [
+    "A. To test predictions about relationships between variables",
+    "B. To complete worksheets faster",
+    "C. To follow classroom rules only",
+    "D. To avoid making mistakes"
+  ], correct: 0 },
+
+{ question: "33. What real-world phenomenon does the CO₂ bottle represent?",
+  options: [
+    "A. Sea-level rise",
+    "B. Greenhouse effect and warming",
+    "C. Earthquake pressure",
+    "D. Ocean salinity"
+  ], correct: 1 },
+
+{ question: "34. Why is handwashing required after the experiment?",
+  options: [
+    "A. To remove any chemicals or residue",
+    "B. To cool down hands",
+    "C. To test water temperature",
+    "D. It is optional"
+  ], correct: 0 },
+
+{ question: "35. The class revisits community agreements to:",
+  options: [
+    "A. Improve scientific collaboration",
+    "B. Set rules for recess",
+    "C. Remove lab equipment",
+    "D. Compare homework"
+  ], correct: 0 },
+
+{ question: "36. In the global CO₂/temperature graph, students look for:",
+  options: [
+    "A. A relationship between CO₂ and climate trends",
+    "B. A pattern of ocean currents",
+    "C. Earthquake frequency",
+    "D. Rainfall changes only"
+  ], correct: 0 },
+
+{ question: "37. How does the model activity help students?",
+  options: [
+    "A. It simulates movement of carbon and energy through Earth systems",
+    "B. It teaches multiplication",
+    "C. It shows how to build physical machines",
+    "D. It calculates carbon prices"
+  ], correct: 0 },
+
+{ question: "38. Which Earth system includes rivers, oceans, and lakes?",
+  options: [
+    "A. Biosphere",
+    "B. Geosphere",
+    "C. Hydrosphere",
+    "D. Atmosphere"
+  ], correct: 2 },
+
+{ question: "39. Which system includes humans and animals?",
+  options: [
+    "A. Biosphere",
+    "B. Lithosphere",
+    "C. Technosphere",
+    "D. Cryosphere"
+  ], correct: 0 },
+
+{ question: "40. Why did carbon atoms move between seven stations in the simulation?",
+  options: [
+    "A. To memorize station locations",
+    "B. To model carbon moving through Earth systems",
+    "C. To practice physical exercise",
+    "D. To simulate plant growth only"
+  ], correct: 1 },
+
+{ question: "41. Why did some carbon atoms remain longer in certain systems?",
+  options: [
+    "A. Because of natural storage and release patterns",
+    "B. Because students chose randomly",
+    "C. Because stations were far apart",
+    "D. Because the teacher assigned them"
+  ], correct: 0 },
+
+{ question: "42. What increases fire risk in ecosystems like the Serengeti?",
+  options: [
+    "A. Frequent rainfall",
+    "B. Accumulation of dry grass and heat",
+    "C. Migration of animals",
+    "D. Increased ocean activity"
+  ], correct: 1 },
+
+{ question: "43. What do prescribed or cultural fires help maintain?",
+  options: [
+    "A. Balance of matter and energy in ecosystems",
+    "B. Desert formation",
+    "C. Flooding cycles",
+    "D. Tornado intensity"
+  ], correct: 0 },
+
+{ question: "44. What does a positive feedback loop in fire systems mean?",
+  options: [
+    "A. Fire reduces CO₂ levels",
+    "B. Fire increases conditions that make more fires likely",
+    "C. Fire prevents heat from rising",
+    "D. Fire instantly restores ecosystems"
+  ], correct: 1 },
+
+{ question: "45. Why do students analyze case studies on fire management?",
+  options: [
+    "A. To learn multiple real-world solutions",
+    "B. To memorize diagrams",
+    "C. To compare weather patterns",
+    "D. To predict earthquakes"
+  ], correct: 0 },
+
+{ question: "46. Which group often holds important traditional fire knowledge?",
+  options: [
+    "A. Geological survey teams",
+    "B. Indigenous communities",
+    "C. Meteorologists only",
+    "D. Astronomers"
+  ], correct: 1 },
+
+{ question: "47. What is one challenge of collaborative fire management?",
+  options: [
+    "A. Different groups may have conflicting priorities",
+    "B. Fires never stop spreading",
+    "C. Rainfall eliminates collaboration needs",
+    "D. Fire can only be managed by machines"
+  ], correct: 0 },
+
+{ question: "48. Why do students update their Gotta-Have-It checklist?",
+  options: [
+    "A. To identify key components needed for scientific explanations",
+    "B. To replace their vocabulary lists",
+    "C. To create a class schedule",
+    "D. To take attendance"
+  ], correct: 0 },
+
+{ question: "49. What is the goal of designing a fire management system?",
+  options: [
+    "A. To reduce fire risk in communities",
+    "B. To increase fire intensity",
+    "C. To stop all natural fires permanently",
+    "D. To replace firefighters"
+  ], correct: 0 },
+
+{ question: "50. Why must students consider constraints when designing solutions?",
+  options: [
+    "A. Real solutions must fit within limits like safety, cost, and community needs",
+    "B. Constraints make designs easier",
+    "C. Constraints determine quiz scores",
+    "D. Constraints are unnecessary"
+  ], correct: 0 }
+
+];
+
+// ==============================
+// RENDER QUESTIONS
+// ==============================
+const quizForm = document.getElementById("quizForm");
+quizQuestions.forEach((q, index) => {
+    quizForm.innerHTML += `
+        <div class="question">${q.question}</div>
+        ${q.options.map((o,i)=>
+          `<label><input type="radio" name="q${index}" value="${i}"> ${o}</label>`
+        ).join("")}
+    `;
+});
+
+// ==============================
+// SCORING FUNCTION
+// ==============================
+function submitQuiz() {
+    let score = 0;
+    quizQuestions.forEach((q, i) => {
+        const ans = document.querySelector(`input[name="q${i}"]:checked`);
+        if (ans && parseInt(ans.value) === q.correct) score++;
+    });
+    document.getElementById("results").innerHTML =
+        "You scored " + score + " out of " + quizQuestions.length;
+}
+</script>
+
+</body>
+</html>
