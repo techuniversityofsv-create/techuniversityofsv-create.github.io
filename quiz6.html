@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arctic Bear Evolution Quiz</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f7fb;
+    padding:20px;
+    line-height:1.6;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+h1{
+    text-align:center;
+    color:#1f4e79;
+}
+
+.summary{
+    background:#eef5ff;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:30px;
+}
+
+.summary h2{
+    color:#1f4e79;
+}
+
+.score-board{
+    position:sticky;
+    top:10px;
+    background:#1f4e79;
+    color:white;
+    padding:15px;
+    border-radius:10px;
+    text-align:center;
+    font-size:24px;
+    margin-bottom:20px;
+    z-index:100;
+}
+
+.question-box{
+    border:1px solid #ddd;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:20px;
+}
+
+.question{
+    font-weight:bold;
+    font-size:18px;
+    margin-bottom:15px;
+}
+
+.option{
+    display:block;
+    padding:10px;
+    border-radius:6px;
+    margin:6px 0;
+    cursor:pointer;
+}
+
+.option:hover{
+    background:#eef4ff;
+}
+
+.correct{
+    background:#c8f7c5 !important;
+    border:2px solid green;
+}
+
+.wrong{
+    background:#ffd6d6 !important;
+    border:2px solid red;
+}
+
+.answer-text{
+    margin-top:10px;
+    font-weight:bold;
+    color:#1f4e79;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Arctic Bear Evolution Quiz</h1>
+
+<div class="summary">
+
+<h2>PDF Summary</h2>
+
+<p>
+This science unit explores how Arctic bear populations are changing due to climate change and environmental shifts.
+Students investigate polar bears, brown bears, and black bears to understand evolution, natural selection,
+adaptation, thermoregulation, hybridization, extinction, and biodiversity.
+</p>
+
+<p>
+The lessons explain how shrinking Arctic sea ice affects polar bears by reducing hunting opportunities and increasing
+competition with brown bears. Students analyze bear interactions, overheating evidence, DNA relationships,
+glacial cycles, speciation, extinction patterns, and conservation efforts.
+</p>
+
+<p>
+The unit also investigates how climate change impacts ecosystems, how species evolve over time,
+and how humans can help prevent extinction through conservation strategies.
+</p>
+
+</div>
+
+<div class="score-board">
+Score: <span id="score">0</span> / <span id="total">20</span>
+</div>
+
+<div id="quiz"></div>
+
+</div>
+
+<script>
+
+const questions = [
+
+{
+question:"Why are polar bears struggling in the Arctic?",
+options:[
+"Too much rainfall",
+"Loss of sea ice",
+"Too many forests",
+"Too much snow"
+],
+answer:1
+},
+
+{
+question:"What do polar bears mainly hunt?",
+options:[
+"Seals",
+"Fish",
+"Birds",
+"Foxes"
+],
+answer:0
+},
+
+{
+question:"Which bear species may dominate as the Arctic warms?",
+options:[
+"Polar bears",
+"Brown bears",
+"Panda bears",
+"Black bears"
+],
+answer:1
+},
+
+{
+question:"What causes species to evolve over time?",
+options:[
+"Condensation",
+"Natural selection",
+"Evaporation",
+"Photosynthesis"
+],
+answer:1
+},
+
+{
+question:"What is one problem polar bears face during movement?",
+options:[
+"Overheating",
+"Too much speed",
+"Poor eyesight",
+"Heavy rainfall"
+],
+answer:0
+},
+
+{
+question:"What was used to study relationships between bears?",
+options:[
+"Cloud patterns",
+"DNA sequences",
+"Tree rings",
+"Ocean tides"
+],
+answer:1
+},
+
+{
+question:"What environmental feature is shrinking in the Arctic?",
+options:[
+"Forests",
+"Sea ice",
+"Grasslands",
+"Mountains"
+],
+answer:1
+},
+
+{
+question:"What can happen when brown and polar bears mate?",
+options:[
+"Extinction",
+"Hybrid offspring",
+"Volcanoes",
+"No offspring"
+],
+answer:1
+},
+
+{
+question:"Why do polar bears depend on sea ice?",
+options:[
+"For sleeping only",
+"To hunt seals",
+"To hide from birds",
+"To climb trees"
+],
+answer:1
+},
+
+{
+question:"What scientific idea explains how species change?",
+options:[
+"Natural selection",
+"Condensation",
+"Magnetism",
+"Reflection"
+],
+answer:0
+},
+
+{
+question:"What type of periods affected bear evolution?",
+options:[
+"Rainy periods",
+"Glacial periods",
+"Dry periods",
+"Storm periods"
+],
+answer:1
+},
+
+{
+question:"Why are ecosystems affected if species go extinct?",
+options:[
+"Biodiversity decreases",
+"Rain increases",
+"Gravity changes",
+"Oceans disappear"
+],
+answer:0
+},
+
+{
+question:"What evidence did students analyze to study bears?",
+options:[
+"DNA data",
+"Sports scores",
+"Movie reviews",
+"Traffic reports"
+],
+answer:0
+},
+
+{
+question:"What happens when habitats shrink?",
+options:[
+"Populations may decline",
+"Species become invisible",
+"Mountains grow",
+"Weather stops"
+],
+answer:0
+},
+
+{
+question:"What is thermoregulation?",
+options:[
+"Control of body temperature",
+"Making clouds",
+"Studying rocks",
+"Ocean freezing"
+],
+answer:0
+},
+
+{
+question:"What may happen if Arctic ice keeps disappearing?",
+options:[
+"Polar bears adapt quickly",
+"Polar bear populations decline",
+"Sea levels disappear",
+"Forests freeze instantly"
+],
+answer:1
+},
+
+{
+question:"Why do scientists study extinction events?",
+options:[
+"To understand biodiversity loss",
+"To predict sports scores",
+"To study television",
+"To grow forests"
+],
+answer:0
+},
+
+{
+question:"What is biodiversity?",
+options:[
+"Variety of living organisms",
+"Amount of rainfall",
+"Type of mountain",
+"Ocean temperature"
+],
+answer:0
+},
+
+{
+question:"What did students investigate about extinct species?",
+options:[
+"Mass extinction patterns",
+"Cooking recipes",
+"Computer coding",
+"Sports history"
+],
+answer:0
+},
+
+{
+question:"Why should people protect endangered species?",
+options:[
+"To maintain ecosystems",
+"To reduce gravity",
+"To stop oceans",
+"To increase deserts"
+],
+answer:0
+}
+
+
+<!-- ADD THESE QUESTIONS INSIDE YOUR questions ARRAY -->
+
+{
+question:"What do polar bears use sea ice for?",
+options:[
+"Hunting seals",
+"Climbing trees",
+"Hiding underground",
+"Building nests"
+],
+answer:0
+},
+
+{
+question:"Why are brown bears moving farther north?",
+options:[
+"More deserts",
+"Warming temperatures",
+"Less sunlight",
+"More volcanoes"
+],
+answer:1
+},
+
+{
+question:"What happens when species compete for food?",
+options:[
+"Competition occurs",
+"Gravity changes",
+"Oceans disappear",
+"Rain stops"
+],
+answer:0
+},
+
+{
+question:"What type of evidence helps scientists study relatedness?",
+options:[
+"DNA evidence",
+"Music recordings",
+"Traffic maps",
+"Wind speed"
+],
+answer:0
+},
+
+{
+question:"What is speciation?",
+options:[
+"Formation of new species",
+"Ocean movement",
+"Cloud formation",
+"Rock melting"
+],
+answer:0
+},
+
+{
+question:"Why might polar bears overheat?",
+options:[
+"Thick insulation and fur",
+"Too little food",
+"Cold temperatures",
+"Heavy snowfall"
+],
+answer:0
+},
+
+{
+question:"What adaptation helps polar bears survive cold climates?",
+options:[
+"Thin fur",
+"Large ears",
+"Thick fat layers",
+"Bright feathers"
+],
+answer:2
+},
+
+{
+question:"What is a hybrid bear?",
+options:[
+"A fish species",
+"Offspring from two species",
+"A baby seal",
+"A type of bird"
+],
+answer:1
+},
+
+{
+question:"What environmental change affects seal populations?",
+options:[
+"Shrinking sea ice",
+"More deserts",
+"Less gravity",
+"More forests"
+],
+answer:0
+},
+
+{
+question:"Why do scientists study fossils?",
+options:[
+"To understand past life",
+"To predict sports",
+"To make computers",
+"To control weather"
+],
+answer:0
+},
+
+{
+question:"What is biodiversity important for?",
+options:[
+"Ecosystem stability",
+"Creating storms",
+"Stopping sunlight",
+"Making mountains"
+],
+answer:0
+},
+
+{
+question:"What may happen after mass extinctions?",
+options:[
+"New species evolve",
+"Gravity disappears",
+"Oceans dry up",
+"Time stops"
+],
+answer:0
+},
+
+{
+question:"Why are polar bears considered vulnerable?",
+options:[
+"Habitat loss",
+"Too many forests",
+"Heavy rainfall",
+"Fast reproduction"
+],
+answer:0
+},
+
+{
+question:"What role does natural selection play?",
+options:[
+"Selecting useful traits",
+"Creating oceans",
+"Moving continents",
+"Changing gravity"
+],
+answer:0
+},
+
+{
+question:"What do glacial periods involve?",
+options:[
+"Colder climates",
+"Extreme deserts",
+"Volcanic eruptions only",
+"No ice"
+],
+answer:0
+},
+
+{
+question:"What happens when populations become isolated?",
+options:[
+"They may evolve differently",
+"They disappear instantly",
+"They stop reproducing",
+"They turn into plants"
+],
+answer:0
+},
+
+{
+question:"Why is Arctic warming dangerous for polar bears?",
+options:[
+"It reduces hunting habitat",
+"It increases forests",
+"It creates mountains",
+"It lowers sunlight"
+],
+answer:0
+},
+
+{
+question:"What type of relationship did scientists study between bears?",
+options:[
+"Predator-prey",
+"Competition and interaction",
+"Photosynthesis",
+"Electricity"
+],
+answer:1
+},
+
+{
+question:"What can humans do to help endangered species?",
+options:[
+"Conservation efforts",
+"Remove habitats",
+"Increase pollution",
+"Destroy ecosystems"
+],
+answer:0
+},
+
+{
+question:"What scientific process explains inherited traits helping survival?",
+options:[
+"Natural selection",
+"Condensation",
+"Reflection",
+"Evaporation"
+],
+answer:0
+},
+
+{
+question:"What is one consequence of extinction?",
+options:[
+"Reduced biodiversity",
+"Increased gravity",
+"More planets",
+"Less sunlight"
+],
+answer:0
+},
+
+{
+question:"What kind of climate do polar bears prefer?",
+options:[
+"Cold Arctic climate",
+"Hot deserts",
+"Tropical rainforests",
+"Grasslands"
+],
+answer:0
+},
+
+{
+question:"What evidence showed changing Arctic conditions?",
+options:[
+"Sea ice data",
+"Movie ratings",
+"Road maps",
+"Building heights"
+],
+answer:0
+},
+
+{
+question:"Why are seals important to polar bears?",
+options:[
+"They are the main food source",
+"They build dens",
+"They provide oxygen",
+"They melt ice"
+],
+answer:0
+},
+
+{
+question:"What helps species survive environmental changes?",
+options:[
+"Adaptations",
+"Luck only",
+"Volcanoes",
+"Earthquakes"
+],
+answer:0
+},
+
+{
+question:"Why do scientists use models?",
+options:[
+"To predict outcomes",
+"To stop weather",
+"To create oceans",
+"To move glaciers"
+],
+answer:0
+},
+
+{
+question:"What happened to Arctic sea ice over time?",
+options:[
+"It declined",
+"It doubled instantly",
+"It disappeared overnight",
+"It became forests"
+],
+answer:0
+},
+
+{
+question:"What is one sign of ecosystem imbalance?",
+options:[
+"Species extinction",
+"More stars",
+"More gravity",
+"Ocean shrinking"
+],
+answer:0
+},
+
+{
+question:"Why are conservation strategies important?",
+options:[
+"They help prevent extinction",
+"They increase pollution",
+"They remove biodiversity",
+"They melt glaciers"
+],
+answer:0
+},
+
+{
+question:"What is one effect of climate change in the Arctic?",
+options:[
+"Earlier ice melting",
+"Permanent snow increase",
+"Forest expansion everywhere",
+"No seasonal change"
+],
+answer:0
+}
+,
+{question:"What do polar bears use sea ice for?",
+options:[
+"Hunting seals",
+"Climbing trees",
+"Hiding underground",
+"Building nests"
+],
+answer:0
+},
+
+{
+question:"Why are brown bears moving farther north?",
+options:[
+"More deserts",
+"Warming temperatures",
+"Less sunlight",
+"More volcanoes"
+],
+answer:1
+},
+
+{
+question:"What happens when species compete for food?",
+options:[
+"Competition occurs",
+"Gravity changes",
+"Oceans disappear",
+"Rain stops"
+],
+answer:0
+},
+
+{
+question:"What type of evidence helps scientists study relatedness?",
+options:[
+"DNA evidence",
+"Music recordings",
+"Traffic maps",
+"Wind speed"
+],
+answer:0
+},
+
+{
+question:"What is speciation?",
+options:[
+"Formation of new species",
+"Ocean movement",
+"Cloud formation",
+"Rock melting"
+],
+answer:0
+},
+
+{
+question:"Why might polar bears overheat?",
+options:[
+"Thick insulation and fur",
+"Too little food",
+"Cold temperatures",
+"Heavy snowfall"
+],
+answer:0
+},
+
+{
+question:"What adaptation helps polar bears survive cold climates?",
+options:[
+"Thin fur",
+"Large ears",
+"Thick fat layers",
+"Bright feathers"
+],
+answer:2
+},
+
+{
+question:"What is a hybrid bear?",
+options:[
+"A fish species",
+"Offspring from two species",
+"A baby seal",
+"A type of bird"
+],
+answer:1
+},
+
+{
+question:"What environmental change affects seal populations?",
+options:[
+"Shrinking sea ice",
+"More deserts",
+"Less gravity",
+"More forests"
+],
+answer:0
+},
+
+{
+question:"Why do scientists study fossils?",
+options:[
+"To understand past life",
+"To predict sports",
+"To make computers",
+"To control weather"
+],
+answer:0
+},
+
+{
+question:"What is biodiversity important for?",
+options:[
+"Ecosystem stability",
+"Creating storms",
+"Stopping sunlight",
+"Making mountains"
+],
+answer:0
+},
+
+{
+question:"What may happen after mass extinctions?",
+options:[
+"New species evolve",
+"Gravity disappears",
+"Oceans dry up",
+"Time stops"
+],
+answer:0
+},
+
+{
+question:"Why are polar bears considered vulnerable?",
+options:[
+"Habitat loss",
+"Too many forests",
+"Heavy rainfall",
+"Fast reproduction"
+],
+answer:0
+},
+
+{
+question:"What role does natural selection play?",
+options:[
+"Selecting useful traits",
+"Creating oceans",
+"Moving continents",
+"Changing gravity"
+],
+answer:0
+},
+
+{
+question:"What do glacial periods involve?",
+options:[
+"Colder climates",
+"Extreme deserts",
+"Volcanic eruptions only",
+"No ice"
+],
+answer:0
+},
+
+{
+question:"What happens when populations become isolated?",
+options:[
+"They may evolve differently",
+"They disappear instantly",
+"They stop reproducing",
+"They turn into plants"
+],
+answer:0
+},
+
+{
+question:"Why is Arctic warming dangerous for polar bears?",
+options:[
+"It reduces hunting habitat",
+"It increases forests",
+"It creates mountains",
+"It lowers sunlight"
+],
+answer:0
+},
+
+{
+question:"What type of relationship did scientists study between bears?",
+options:[
+"Predator-prey",
+"Competition and interaction",
+"Photosynthesis",
+"Electricity"
+],
+answer:1
+},
+
+{
+question:"What can humans do to help endangered species?",
+options:[
+"Conservation efforts",
+"Remove habitats",
+"Increase pollution",
+"Destroy ecosystems"
+],
+answer:0
+},
+
+{
+question:"What scientific process explains inherited traits helping survival?",
+options:[
+"Natural selection",
+"Condensation",
+"Reflection",
+"Evaporation"
+],
+answer:0
+},
+
+{
+question:"What is one consequence of extinction?",
+options:[
+"Reduced biodiversity",
+"Increased gravity",
+"More planets",
+"Less sunlight"
+],
+answer:0
+},
+
+{
+question:"What kind of climate do polar bears prefer?",
+options:[
+"Cold Arctic climate",
+"Hot deserts",
+"Tropical rainforests",
+"Grasslands"
+],
+answer:0
+},
+
+{
+question:"What evidence showed changing Arctic conditions?",
+options:[
+"Sea ice data",
+"Movie ratings",
+"Road maps",
+"Building heights"
+],
+answer:0
+},
+
+{
+question:"Why are seals important to polar bears?",
+options:[
+"They are the main food source",
+"They build dens",
+"They provide oxygen",
+"They melt ice"
+],
+answer:0
+},
+
+{
+question:"What helps species survive environmental changes?",
+options:[
+"Adaptations",
+"Luck only",
+"Volcanoes",
+"Earthquakes"
+],
+answer:0
+},
+
+{
+question:"Why do scientists use models?",
+options:[
+"To predict outcomes",
+"To stop weather",
+"To create oceans",
+"To move glaciers"
+],
+answer:0
+},
+
+{
+question:"What happened to Arctic sea ice over time?",
+options:[
+"It declined",
+"It doubled instantly",
+"It disappeared overnight",
+"It became forests"
+],
+answer:0
+},
+
+{
+question:"What is one sign of ecosystem imbalance?",
+options:[
+"Species extinction",
+"More stars",
+"More gravity",
+"Ocean shrinking"
+],
+answer:0
+},
+
+{
+question:"Why are conservation strategies important?",
+options:[
+"They help prevent extinction",
+"They increase pollution",
+"They remove biodiversity",
+"They melt glaciers"
+],
+answer:0
+},
+
+{
+question:"What is one effect of climate change in the Arctic?",
+options:[
+"Earlier ice melting",
+"Permanent snow increase",
+"Forest expansion everywhere",
+"No seasonal change"
+],
+answer:0
+}
+,
+<!-- MORE QUESTIONS -->
+
+{
+question:"Why do polar bears spend time near ice ridges?",
+options:[
+"To hunt seals",
+"To build nests",
+"To avoid sunlight",
+"To eat plants"
+],
+answer:0
+},
+
+{
+question:"What did scientists notice about polar bear populations?",
+options:[
+"They are becoming healthier",
+"They are shrinking in some areas",
+"They are turning brown",
+"They are moving south permanently"
+],
+answer:1
+},
+
+{
+question:"What type of data helps scientists study climate change?",
+options:[
+"Sea ice graphs",
+"Music charts",
+"Movie reviews",
+"Restaurant menus"
+],
+answer:0
+},
+
+{
+question:"What happens when sea ice forms later in the year?",
+options:[
+"Polar bears have less hunting time",
+"More forests grow",
+"Seals disappear instantly",
+"Oceans freeze completely"
+],
+answer:0
+},
+
+{
+question:"Why are seal pups affected by melting ice?",
+options:[
+"They lose habitat for shelter",
+"They become birds",
+"They stop eating",
+"They migrate to deserts"
+],
+answer:0
+},
+
+{
+question:"What kind of adaptation helps polar bears stay warm?",
+options:[
+"Thick fur",
+"Thin skin",
+"Large wings",
+"Bright feathers"
+],
+answer:0
+},
+
+{
+question:"Why might brown bears survive warming climates better?",
+options:[
+"They tolerate warmer temperatures",
+"They can fly",
+"They eat only fish",
+"They need more ice"
+],
+answer:0
+},
+
+{
+question:"What does DNA comparison show scientists?",
+options:[
+"Genetic relationships",
+"Weather forecasts",
+"Mountain heights",
+"Ocean depth"
+],
+answer:0
+},
+
+{
+question:"What is one result of isolation in populations?",
+options:[
+"Speciation",
+"Instant extinction",
+"No reproduction",
+"Loss of gravity"
+],
+answer:0
+},
+
+{
+question:"What is an ecosystem?",
+options:[
+"A community of living things and environment",
+"A single animal",
+"A mountain range",
+"A weather pattern"
+],
+answer:0
+},
+
+{
+question:"Why is biodiversity valuable?",
+options:[
+"It supports ecosystem resilience",
+"It stops climate change instantly",
+"It removes predators",
+"It prevents evolution"
+],
+answer:0
+},
+
+{
+question:"What do extinction events reduce?",
+options:[
+"Biodiversity",
+"Sunlight",
+"Gravity",
+"Wind"
+],
+answer:0
+},
+
+{
+question:"What is one possible future for polar bears?",
+options:[
+"Population decline",
+"Transformation into fish",
+"Migration to deserts",
+"Loss of fur instantly"
+],
+answer:0
+},
+
+{
+question:"What can hybrid bears inherit?",
+options:[
+"Traits from both parents",
+"Only polar bear traits",
+"Only brown bear traits",
+"No traits"
+],
+answer:0
+},
+
+{
+question:"What does climate change alter in the Arctic?",
+options:[
+"Sea ice conditions",
+"Earth's gravity",
+"Moon phases",
+"Volcano formation"
+],
+answer:0
+},
+
+{
+question:"Why are scientists concerned about extinction?",
+options:[
+"It can disrupt ecosystems",
+"It increases gravity",
+"It creates storms",
+"It removes sunlight"
+],
+answer:0
+},
+
+{
+question:"What did students use to organize scientific ideas?",
+options:[
+"Driving Question Board",
+"Recipe book",
+"Television guide",
+"Traffic report"
+],
+answer:0
+},
+
+{
+question:"Why do scientists gather evidence?",
+options:[
+"To support explanations",
+"To stop evolution",
+"To create glaciers",
+"To control oceans"
+],
+answer:0
+},
+
+{
+question:"What happens during interglacial periods?",
+options:[
+"Warmer climates occur",
+"All oceans freeze",
+"Mountains disappear",
+"No animals survive"
+],
+answer:0
+},
+
+{
+question:"Why do polar bears rely heavily on seals?",
+options:[
+"They provide high-energy food",
+"They build ice",
+"They protect cubs",
+"They create habitats"
+],
+answer:0
+},
+
+{
+question:"What is one effect of thinner ice?",
+options:[
+"More dangerous travel conditions",
+"Faster tree growth",
+"Less ocean water",
+"More glaciers"
+],
+answer:0
+},
+
+{
+question:"Why do scientists create evolutionary trees?",
+options:[
+"To show relatedness",
+"To grow forests",
+"To predict earthquakes",
+"To control weather"
+],
+answer:0
+},
+
+{
+question:"What can selection pressures cause?",
+options:[
+"Changes in populations",
+"Instant extinction",
+"Ocean evaporation",
+"Gravity changes"
+],
+answer:0
+},
+
+{
+question:"What evidence supports climate warming in the Arctic?",
+options:[
+"Earlier ice melting",
+"More permanent ice",
+"Lower temperatures everywhere",
+"Frozen oceans year-round"
+],
+answer:0
+},
+
+{
+question:"Why might polar bears come onto land more often?",
+options:[
+"Less sea ice available",
+"Too many forests",
+"More deserts forming",
+"Less sunlight"
+],
+answer:0
+},
+
+{
+question:"What is one way humans can protect species?",
+options:[
+"Habitat conservation",
+"Increasing pollution",
+"Removing food sources",
+"Destroying ecosystems"
+],
+answer:0
+},
+
+{
+question:"What do scientists study to understand ancient climates?",
+options:[
+"Fossils and ice records",
+"Sports records",
+"Television programs",
+"Street maps"
+],
+answer:0
+},
+
+{
+question:"What is a major concern with rapid climate change?",
+options:[
+"Species may not adapt quickly enough",
+"Mountains disappear overnight",
+"Oceans stop moving",
+"Gravity weakens"
+],
+answer:0
+},
+
+{
+question:"What happens if food sources decrease?",
+options:[
+"Animal populations may decline",
+"Species instantly evolve",
+"Glaciers melt immediately",
+"New oceans appear"
+],
+answer:0
+},
+
+{
+question:"Why do ecosystems need many species?",
+options:[
+"To remain balanced and resilient",
+"To increase storms",
+"To reduce sunlight",
+"To stop evolution"
+],
+answer:0
+}
+
+];
+
+const quizContainer = document.getElementById("quiz");
+const scoreEl = document.getElementById("score");
+document.getElementById("total").textContent = questions.length;
+
+let score = 0;
+let answered = new Set();
+
+questions.forEach((q,index)=>{
+
+    const box = document.createElement("div");
+    box.className = "question-box";
+
+    const question = document.createElement("div");
+    question.className = "question";
+    question.innerHTML = (index+1) + ". " + q.question;
+
+    box.appendChild(question);
+
+    const answerText = document.createElement("div");
+    answerText.className = "answer-text";
+
+    q.options.forEach((option,i)=>{
+
+        const label = document.createElement("label");
+        label.className = "option";
+
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "question"+index;
+
+        radio.addEventListener("click",()=>{
+
+            if(answered.has(index)) return;
+
+            answered.add(index);
+
+            const allOptions = box.querySelectorAll(".option");
+
+            allOptions[q.answer].classList.add("correct");
+
+            if(i === q.answer){
+                score++;
+            }else{
+                label.classList.add("wrong");
+            }
+
+            scoreEl.textContent = score;
+
+            answerText.innerHTML =
+            "Correct Answer: " + q.options[q.answer];
+
+        });
+
+        label.appendChild(radio);
+        label.append(" " + option);
+
+        box.appendChild(label);
+
+    });
+
+    box.appendChild(answerText);
+
+    quizContainer.appendChild(box);
+
+});
+
+</script>
+
+</body>
+</html>
