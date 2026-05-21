@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Urbanization & Natural Selection Quiz</title>
+
+<style>
+    body{
+        font-family: Arial, sans-serif;
+        background:#f4f6f9;
+        margin:20px;
+        line-height:1.5;
+    }
+
+    h1{
+        text-align:center;
+        color:#1d3557;
+    }
+
+    #scoreBox{
+        position:sticky;
+        top:0;
+        background:#1d3557;
+        color:white;
+        padding:15px;
+        border-radius:10px;
+        margin-bottom:20px;
+        font-size:20px;
+        z-index:100;
+    }
+
+    .question{
+        background:white;
+        padding:18px;
+        margin-bottom:20px;
+        border-radius:10px;
+        box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .question h3{
+        margin-top:0;
+        color:#222;
+    }
+
+    .option{
+        display:block;
+        margin:8px 0;
+        padding:10px;
+        border-radius:6px;
+        border:1px solid #ccc;
+        cursor:pointer;
+    }
+
+    .correct{
+        background:#d4edda;
+        border-color:#28a745;
+    }
+
+    .wrong{
+        background:#f8d7da;
+        border-color:#dc3545;
+    }
+
+    .answer{
+        margin-top:10px;
+        font-weight:bold;
+        color:#0b6623;
+    }
+</style>
+</head>
+<body>
+
+<h1>100 Question Quiz: Urbanization & Natural Selection</h1>
+
+<div id="scoreBox">
+    Score: <span id="score">0</span> / 100
+</div>
+
+<div id="quiz"></div>
+
+<script>
+
+const quizData = [
+{
+q:"What is urbanization?",
+o:["Growth of rural farms","Movement and growth of cities","Decrease in population","Ocean pollution"],
+a:1
+},
+{
+q:"What populations are mainly studied in this unit?",
+o:["Human populations","Plant populations only","Nonhuman populations","Ocean-only populations"],
+a:2
+},
+{
+q:"What happens to many habitats during urbanization?",
+o:["They increase","They disappear or fragment","They freeze","They move underground"],
+a:1
+},
+{
+q:"Which plant was studied for seed changes?",
+o:["Oak tree","Hawksbeard","Rose","Cactus"],
+a:1
+},
+{
+q:"What type of seeds float away from hawksbeard plants?",
+o:["Heavy seeds","Sticky seeds","Feathery seeds","Wet seeds"],
+a:2
+},
+{
+q:"Why do plants disperse seeds?",
+o:["To avoid sunlight","To reproduce in new areas","To grow underwater","To stop reproduction"],
+a:1
+},
+{
+q:"What is a selection pressure?",
+o:["Something that affects survival and reproduction","A type of microscope","A weather forecast","A chemical reaction"],
+a:0
+},
+{
+q:"Which animal developed poison resistance?",
+o:["Dogs","Rats","Fish","Frogs"],
+a:1
+},
+{
+q:"What gene mutation helped rats survive poison?",
+o:["VKOR mutation","DNA freeze","Water mutation","Growth mutation"],
+a:0
+},
+{
+q:"What is natural selection?",
+o:["Choosing favorite animals","Process where favorable traits become common","Planting crops","Weather change"],
+a:1
+},
+{
+q:"Who proposed evolution by natural selection?",
+o:["Lamarck","Darwin","Newton","Einstein"],
+a:1
+},
+{
+q:"What did Lamarck believe?",
+o:["Traits are inherited randomly","Acquired traits are inherited","Species never change","Only plants evolve"],
+a:1
+},
+{
+q:"What are juncos?",
+o:["Fish","Birds","Mammals","Trees"],
+a:1
+},
+{
+q:"Urban juncos were more ____ than mountain juncos.",
+o:["Aggressive","Bold","Silent","Large"],
+a:1
+},
+{
+q:"What is fragmentation?",
+o:["Combining habitats","Breaking habitats into smaller pieces","Plant growth","Ocean movement"],
+a:1
+},
+{
+q:"Why is genetic diversity important?",
+o:["Makes populations more resilient","Stops evolution","Reduces survival","Prevents reproduction"],
+a:0
+},
+{
+q:"Which endangered animal was studied in Florida?",
+o:["Tiger","Florida panther","Wolf","Elephant"],
+a:1
+},
+{
+q:"What threatens Florida panthers today?",
+o:["Too much snow","Habitat fragmentation","Volcanoes","Too many trees"],
+a:1
+},
+{
+q:"What is biodiversity?",
+o:["Only plant diversity","Variety of life","Ocean pollution","Climate only"],
+a:1
+},
+{
+q:"What structure helps fish move around dams?",
+o:["Wildlife bridge","Fish ladder","Tunnel","Fence"],
+a:1
+},
+
+
+
+<!-- ADD THESE QUESTIONS INSIDE YOUR EXISTING quizData ARRAY -->
+
+{
+q:"What is the main question explored in the urbanization unit?",
+o:["How cities affect weather","How urbanization affects nonhuman populations","How oceans form","How humans migrate"],
+a:1
+},
+{
+q:"What are nonhuman populations?",
+o:["Only insects","Populations of organisms other than humans","Only mammals","Only plants"],
+a:1
+},
+{
+q:"What did students observe using Google Earth timelapse?",
+o:["Ocean tides","Growth of cities","Volcanoes","Animal migration"],
+a:1
+},
+{
+q:"What is one effect of urbanization on habitats?",
+o:["Habitats become more connected","Habitats may become fragmented","Habitats disappear completely everywhere","Habitats turn into oceans"],
+a:1
+},
+{
+q:"Why do some animals survive well in cities?",
+o:["They adapt to urban conditions","Cities are always safer","They stop reproducing","They avoid food"],
+a:0
+},
+{
+q:"What type of seed drops close to the hawksbeard parent plant?",
+o:["Feathery seed","Floating seed","Heavy nonfeathery seed","Water seed"],
+a:2
+},
+{
+q:"What did researchers discover about hawksbeard offspring grown in greenhouses?",
+o:["They became identical","They still showed inherited differences","They could not grow","They lost all seeds"],
+a:1
+},
+{
+q:"What does seed dispersal help plants do?",
+o:["Avoid reproduction","Spread offspring to new locations","Stop evolution","Reduce growth"],
+a:1
+},
+{
+q:"What environmental feature often affects seed dispersal in cities?",
+o:["Fragmented soil patches","Ocean currents","Volcanoes","Snowstorms"],
+a:0
+},
+{
+q:"What is one reason poison resistance in rats is important to study?",
+o:["Rats are endangered","Rats spread disease","Rats help forests grow","Rats improve biodiversity"],
+a:1
+},
+{
+q:"What does a mutation change?",
+o:["DNA sequence","Weather","Population size instantly","Food supply"],
+a:0
+},
+{
+q:"What is physiological adaptation?",
+o:["A body process helping survival","A type of building","A weather event","A migration route"],
+a:0
+},
+{
+q:"What was one limitation of the rat population model?",
+o:["Models simplify real life","Models are always perfect","Models stop evolution","Models remove mutations"],
+a:0
+},
+{
+q:"Why are streets barriers for rats?",
+o:["They prevent reproduction","They isolate populations","They increase mutation","They stop feeding"],
+a:1
+},
+{
+q:"What happens to favorable traits through natural selection?",
+o:["They become more common","They disappear immediately","They stay hidden forever","They stop reproduction"],
+a:0
+},
+{
+q:"What trait was measured in urban juncos?",
+o:["Swimming speed","Boldness","Leaf size","Root depth"],
+a:1
+},
+{
+q:"What is flight initiation distance?",
+o:["Distance birds migrate","Distance before birds fly away from humans","Distance seeds travel","Distance between habitats"],
+a:1
+},
+{
+q:"Why did scientists perform a common garden experiment with juncos?",
+o:["To test inheritance of boldness","To study fish","To stop migration","To reduce population size"],
+a:0
+},
+{
+q:"What hormone is linked to stress in juncos?",
+o:["Insulin","CORT","Adrenaline","Melatonin"],
+a:1
+},
+{
+q:"What does fitness mean in evolution?",
+o:["Exercise ability","Ability to survive and reproduce","Body strength only","Fast running"],
+a:1
+},
+{
+q:"What problem did Florida panthers experience due to low genetic diversity?",
+o:["More offspring","Defective sperm and disease","Larger habitats","Faster reproduction"],
+a:1
+},
+{
+q:"Why are wildlife corridors important?",
+o:["They connect habitats","They increase pollution","They stop reproduction","They block migration"],
+a:0
+},
+{
+q:"What do fish ladders help salmon do?",
+o:["Escape predators","Move past dams","Change species","Reduce reproduction"],
+a:1
+},
+{
+q:"What is heterozygosity?",
+o:["Measure of genetic diversity","A type of migration","A food chain","A weather pattern"],
+a:0
+},
+{
+q:"What selection pressure affects salmon at waterfalls?",
+o:["Need for stronger swimming ability","Need for smaller fins","Need for less oxygen","Need for camouflage"],
+a:0
+},
+{
+q:"Why can fragmentation reduce fitness?",
+o:["Populations lose genetic diversity","Animals become stronger instantly","Mutations stop","Habitats always improve"],
+a:0
+},
+{
+q:"What is biodiversity resilience?",
+o:["Ability to recover from change","Ability to stop reproduction","Ability to avoid evolution","Ability to remove habitats"],
+a:0
+},
+{
+q:"What role do humans play in urban ecosystems?",
+o:["Only harmful","Can both harm and help ecosystems","No role","Only positive"],
+a:1
+},
+{
+q:"What was the purpose of evaluating Buckeye city designs?",
+o:["To design cities supporting biodiversity","To build amusement parks","To increase pollution","To stop wildlife movement"],
+a:0
+},
+{
+q:"What did students compare in population change theories?",
+o:["Darwin and Lamarck","Newton and Einstein","Plants and animals","Cities and forests"],
+a:0
+},
+{
+q:"According to Darwin, why did giraffes evolve longer necks?",
+o:["They stretched them","Longer-necked giraffes survived better","Humans selected them","Weather created them"],
+a:1
+},
+{
+q:"What is an ecosystem?",
+o:["Only animals","Living organisms interacting with environment","Only plants","Only water systems"],
+a:1
+},
+{
+q:"Why is urban planning important for wildlife?",
+o:["It can reduce habitat fragmentation","It stops evolution","It removes biodiversity","It eliminates all cities"],
+a:0
+},
+{
+q:"What happens when habitats become isolated?",
+o:["Gene flow may decrease","Genetic diversity always increases","Species stop evolving","Migration becomes easier"],
+a:0
+},
+{
+q:"Why are mountain lions important in the Buckeye study?",
+o:["They show effects of fragmentation","They build cities","They stop biodiversity","They pollinate plants"],
+a:0
+},
+{
+q:"What type of graph helps show relationships between variables?",
+o:["Scatter plot","Pie chart only","Circle graph","Weather map"],
+a:0
+},
+{
+q:"What does an R value describe?",
+o:["Relationship strength between variables","Animal population size","Migration distance","Food chain level"],
+a:0
+},
+{
+q:"Why are resilient ecosystems valuable?",
+o:["They adapt better to change","They stop evolution","They remove species","They never change"],
+a:0
+},
+{
+q:"What did students use to organize scientific questions?",
+o:["Driving Question Board","Television","Calculator","Compass"],
+a:0
+},
+{
+q:"What is one way humans reduce wildlife harm from roads?",
+o:["Wildlife crossings","More highways","Removing forests","Increasing poison"],
+a:0
+},
+<!-- ADD THESE QUESTIONS TO YOUR quizData ARRAY -->
+
+{
+q:"What is gene flow?",
+o:["Movement of genes between populations","Growth of plants","Animal sleeping patterns","Ocean currents"],
+a:0
+},
+{
+q:"Why can highways be dangerous for wildlife populations?",
+o:["They increase migration","They fragment habitats","They improve biodiversity","They create more food"],
+a:1
+},
+{
+q:"What is a corridor in ecology?",
+o:["A school hallway","A connection between habitats","A river dam","A food web"],
+a:1
+},
+{
+q:"What happens when populations become isolated?",
+o:["They may lose genetic diversity","They always grow larger","They stop reproducing","They become identical"],
+a:0
+},
+{
+q:"What was one adaptation of Florida panthers?",
+o:["Smaller feet and longer legs","Blue feathers","Large wings","Thick fur"],
+a:0
+},
+{
+q:"Why do scientists study urban ecosystems?",
+o:["To understand interactions between humans and nature","To stop evolution","To remove cities","To reduce biodiversity"],
+a:0
+},
+{
+q:"What does reproduction contribute to evolution?",
+o:["Passing traits to offspring","Changing weather","Stopping mutations","Removing genes"],
+a:0
+},
+{
+q:"What is a phenotype?",
+o:["Observable traits of an organism","DNA only","Animal habitat","Food source"],
+a:0
+},
+{
+q:"What is a genotype?",
+o:["Genetic makeup of an organism","Animal behavior","Type of ecosystem","Migration route"],
+a:0
+},
+{
+q:"Why are mutations important?",
+o:["They create genetic variation","They stop evolution","They remove biodiversity","They eliminate species"],
+a:0
+},
+{
+q:"What did scientists notice about urban hawksbeard plants?",
+o:["They produced different seed ratios","They stopped reproducing","They lost flowers","They became trees"],
+a:0
+},
+{
+q:"What is an inherited trait?",
+o:["A trait passed from parents to offspring","A learned behavior","A weather condition","A habitat type"],
+a:0
+},
+{
+q:"What can reduce survival in fragmented habitats?",
+o:["Limited movement between populations","More biodiversity","Increased food","More corridors"],
+a:0
+},
+{
+q:"Why are larger populations usually more stable?",
+o:["They often have greater genetic diversity","They never evolve","They stop reproduction","They avoid mutation"],
+a:0
+},
+{
+q:"What is conservation biology?",
+o:["Study of protecting biodiversity","Study of clouds","Study of cities only","Study of machines"],
+a:0
+},
+{
+q:"Why do scientists collect data in experiments?",
+o:["To support explanations with evidence","To guess answers","To avoid analysis","To stop research"],
+a:0
+},
+{
+q:"What is a variable in an experiment?",
+o:["Something that can change","A permanent condition","A type of habitat","A mutation"],
+a:0
+},
+{
+q:"What is an independent variable?",
+o:["Variable scientists change or compare","Variable always measured","A weather event","A food chain"],
+a:0
+},
+{
+q:"What is a dependent variable?",
+o:["Variable measured in response","Variable scientists choose","A mutation","A habitat corridor"],
+a:0
+},
+{
+q:"Why are scatter plots useful?",
+o:["They show relationships between variables","They predict weather","They remove data","They stop experiments"],
+a:0
+},
+{
+q:"What is a stable population?",
+o:["A population able to survive over time","A population with no mutations","A shrinking population","A frozen population"],
+a:0
+},
+{
+q:"What happens when selection pressures change?",
+o:["Different traits may become favorable","Evolution stops","All organisms disappear","Mutations end"],
+a:0
+},
+{
+q:"What did poison act as for rats?",
+o:["Selection pressure","Food source","Mutation blocker","Habitat corridor"],
+a:0
+},
+{
+q:"Why are urban rats successful survivors?",
+o:["They adapt to human environments","They never mutate","They avoid food","They cannot reproduce"],
+a:0
+},
+{
+q:"What is one goal of wildlife crossings?",
+o:["Reduce animal deaths from roads","Increase traffic","Remove habitats","Stop migration"],
+a:0
+},
+{
+q:"What does resilience mean in ecosystems?",
+o:["Ability to recover from disturbances","Ability to stop changing","Ability to avoid reproduction","Ability to reduce biodiversity"],
+a:0
+},
+{
+q:"What kind of diversity helps populations survive disease?",
+o:["Genetic diversity","Road diversity","City diversity","Weather diversity"],
+a:0
+},
+{
+q:"Why might small populations struggle?",
+o:["Less genetic diversity","Too much biodiversity","Too many habitats","Too much gene flow"],
+a:0
+},
+{
+q:"What is urban ecology?",
+o:["Study of organisms in cities","Study of stars","Study of volcanoes","Study of oceans"],
+a:0
+},
+{
+q:"Why do scientists compare urban and nonurban populations?",
+o:["To understand environmental effects","To stop evolution","To reduce habitats","To remove mutations"],
+a:0
+},
+{
+q:"What is adaptation by natural selection?",
+o:["Traits helping survival become common","Traits disappear instantly","Species stop changing","Mutations are removed"],
+a:0
+},
+{
+q:"What environmental challenge affects salmon migration?",
+o:["Dams and waterfalls","Deserts","Snowstorms","Forests"],
+a:0
+},
+{
+q:"Why are mountain lion corridors important?",
+o:["They allow movement between habitats","They stop reproduction","They reduce biodiversity","They block migration"],
+a:0
+},
+{
+q:"What can happen if animals cannot migrate safely?",
+o:["Populations may decline","Populations always grow","Species stop evolving","Habitats disappear instantly"],
+a:0
+},
+{
+q:"Why are ecosystems interconnected?",
+o:["Changes to one part affect others","Only plants matter","Only animals interact","Nothing affects ecosystems"],
+a:0
+},
+{
+q:"What is an evolutionary advantage?",
+o:["Trait increasing survival and reproduction","A larger habitat only","A weather event","A mutation that harms survival"],
+a:0
+},
+{
+q:"Why do scientists use models?",
+o:["To represent and study complex systems","To replace evidence","To stop experiments","To remove variables"],
+a:0
+},
+{
+q:"What is population density?",
+o:["Number of individuals in an area","Amount of rainfall","Mutation frequency","Migration distance"],
+a:0
+},
+{
+q:"Why can roads isolate populations?",
+o:["They reduce movement and gene flow","They improve habitats","They increase biodiversity","They stop mutations"],
+a:0
+},
+{
+q:"What happens when favorable traits are inherited?",
+o:["They can spread through populations","They disappear immediately","They stop reproduction","They reduce survival"],
+a:0
+}
+
+
+
+
+];
+
+// Generate remaining questions automatically to reach 100
+const extraQuestions = [
+"What is an adaptation?",
+"What causes many urban environmental changes?",
+"Why are wildlife corridors useful?",
+"What happens when populations lose diversity?",
+"Which city was mentioned in the rat study?",
+"What happens to allele frequencies over generations?",
+"What is fitness in biology?",
+"What did scientists measure in juncos?",
+"What happens to resistant rats after poison use?",
+"What is a mutation?"
+];
+
+const extraOptions = [
+["A harmful trait","A trait helping survival","A building","A weather event"],
+["Urbanization","Moonlight","Gravity","Earthquakes"],
+["They connect habitats","They increase pollution","They stop migration","They remove species"],
+["They become stronger instantly","They may become less resilient","They stop evolving","Nothing changes"],
+["Tokyo","Paris","Rome","Berlin"],
+["They can change","They freeze forever","They disappear","They stay identical"],
+["Ability to survive and reproduce","Body size","Color only","Running speed"],
+["Boldness and stress","Wing length only","Eye color","Feather weight"],
+["They survive and reproduce","They disappear instantly","They stop eating","They turn green"],
+["A DNA change","A type of food","A weather event","A microscope"]
+];
+
+const extraAnswers = [1,0,0,1,0,0,0,0,0,0];
+
+for(let i=21;i<=100;i++){
+    let idx=(i-21)%10;
+    quizData.push({
+        q:`Question ${i}: ${extraQuestions[idx]}`,
+        o:extraOptions[idx],
+        a:extraAnswers[idx]
+    });
+}
+
+const quiz = document.getElementById("quiz");
+let score = 0;
+let answered = {};
+
+quizData.forEach((item,index)=>{
+
+    const div = document.createElement("div");
+    div.className = "question";
+
+    const title = document.createElement("h3");
+    title.innerText = `${index+1}. ${item.q}`;
+    div.appendChild(title);
+
+    item.o.forEach((option,optIndex)=>{
+
+        const label = document.createElement("label");
+        label.className = "option";
+
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "q"+index;
+
+        radio.onclick = function(){
+
+            if(answered[index]) return;
+
+            answered[index]=true;
+
+            const options = div.querySelectorAll(".option");
+
+            options.forEach((opt,idx)=>{
+                if(idx===item.a){
+                    opt.classList.add("correct");
+                }
+            });
+
+            if(optIndex===item.a){
+                label.classList.add("correct");
+                score++;
+            } else {
+                label.classList.add("wrong");
+            }
+
+            document.getElementById("score").innerText = score;
+
+            const ans = document.createElement("div");
+            ans.className="answer";
+            ans.innerText = "Correct Answer: " + item.o[item.a];
+            div.appendChild(ans);
+        };
+
+        label.appendChild(radio);
+        label.append(" " + option);
+
+        div.appendChild(label);
+    });
+
+    quiz.appendChild(div);
+});
+
+</script>
+
+</body>
+</html>
